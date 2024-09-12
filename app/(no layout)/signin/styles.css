@@ -1,0 +1,144 @@
+#login {
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: #0000009e;
+  backdrop-filter: blur(6px);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 851px;
+  height: 450px;
+  background-color: #191919;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #3c3c3c;
+  box-shadow: 0 0 50px 12px black;
+  animation-name: fadeINTop;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeINTop {
+  0% {
+    opacity: 0;
+    margin-top: 80px;
+  }
+  100% {
+    opacity: 1;
+    margin-top: 0px;
+  }
+}
+
+.login-card button {
+  width: 100%;
+  margin: 14px 0px;
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: var(--theme-main-color);
+  border: 1px solid var(--theme-main-color);
+  transition: all 0.2s;
+}
+
+.login-card button:hover {
+  background-color: var(--theme-main-color);
+  color: black;
+}
+
+.login-card h4 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--theme-main-color);
+  margin: 12px 0px;
+  margin-top: 6px;
+}
+
+.login-card strong {
+  color: white;
+}
+
+.login-card input {
+  background-color: #111111;
+  border: 1px solid #2f2f2f;
+  border-radius: 14px;
+  width: 100%;
+  padding: 13px;
+}
+
+.continue-with hr {
+  width: 102px;
+  margin: 9px;
+}
+
+.close-login {
+  display: inline-block;
+  position: absolute;
+  border-radius: 50px;
+  color: var(--theme-main-color);
+  padding: 1px 11px;
+  font-size: 27px;
+  transform: translate(-22px, -17px);
+  background-color: #2d2c2c;
+  box-shadow: 0 0 20px 5px black;
+  border: 1px solid #575757;
+  transition: all 0.2s;
+}
+
+.close-login svg {
+  width: 17px;
+  margin-top: -2px;
+}
+
+.close-login:hover {
+  color: red;
+}
+
+.oAuth-container svg {
+  font-size: 70px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.login-error {
+  margin-top: 16px;
+  background-color: #7d090969;
+  border-radius: 10px;
+  padding: 5px 15px;
+  color: white;
+  font-size: 13px;
+}
+
+.login-valid-error{
+  color: red;
+  font-size: 13px;
+  padding-left: 15px;
+  padding-top: 3px;
+  display: block;
+}
+
+.login-bg {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100vh;
+  animation-name: bgfadein;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes bgfadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

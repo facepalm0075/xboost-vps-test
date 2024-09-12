@@ -1,0 +1,113 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  walletBalance Float           @default(0.00)
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([provider, providerAccountId])
+}
+ 
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@id([identifier, token])
+}
+ 
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([userId, credentialID])
+}
+
+model games {
+  id           Int     @id @default(autoincrement())
+  name         String  @unique
+  showName     String  @default("name")
+  homeImgSrc   String
+  homeImgSize  Json
+  homeImgStyle Json
+  order        orders? @relation(fields: [orderId], references: [id])
+  orderId      String? @unique
+  isEnabled    Boolean @default(false)
+}
+
+model orders {
+  id       String           @id @default(uuid())
+  game     games?
+  boosting boostingOrders[]
+  bgSrc    String
+}
+
+model boostingOrders {
+  id            Int     @id @default(autoincrement())
+  orderedIn     orders? @relation(fields: [orderedInId], references: [id])
+  orderedInId   String?
+  img           String
+  name          String
+  details       String
+  pageImg       String
+  Data          Json
+  extraOptions  Json
+  extraOptions2 Json
+  isEnabled     Boolean @default(false)
+}

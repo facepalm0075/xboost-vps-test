@@ -1,0 +1,268 @@
+.elipse1 {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 400px;
+  height: 400px;
+  background-color: #f622ea;
+  border-radius: 200px;
+  filter: blur(141px);
+  z-index: -2;
+  animation-name: fadeInC;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInC {
+  0% {
+  }
+  100% {
+    transform: translate(283px, -2px);
+  }
+}
+
+.elipse2 {
+  position: absolute;
+  left: -300px;
+  width: 400px;
+  height: 400px;
+  background-color: var(--theme-main-color);
+  border-radius: 200px;
+  filter: blur(141px);
+  z-index: -2;
+  animation-name: fadeInCn;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInCn {
+  0% {
+  }
+  100% {
+    transform: translate(0px, -200px);
+  }
+}
+
+.contact-base {
+  width: 95%;
+  max-width: 1300px;
+  border-radius: 36px;
+  margin: auto;
+  background-color: #212121;
+  border: 1px solid #4e4e4e;
+}
+
+.contacts-banner {
+  margin-top: 170px;
+  padding: 72px 79px;
+  position: relative;
+  border-bottom-left-radius: 10px;
+}
+
+.contacts-banner h1 {
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.contacts-banner p {
+  margin-bottom: 15px;
+}
+
+.contact-btn {
+  border: 1px solid var(--theme-main-color);
+  color: var(--theme-main-color);
+  padding: 10px 20px;
+  border-radius: 11px;
+  width: 143px;
+  margin-top: 27px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s;
+  z-index: 2;
+  position: relative;
+}
+
+.contact-btn:hover {
+  background-color: var(--theme-main-color);
+  color: black;
+}
+
+.contacts-abstract {
+  position: absolute;
+  left: 2px;
+  top: 3px;
+}
+
+.contacts-img1 {
+  position: absolute;
+  right: 112px;
+  top: -136px;
+}
+
+.contacts-info {
+  margin-top: 30px;
+  border-radius: 10px;
+  padding: 0px 10px;
+}
+
+.info-item {
+  margin: 18px 10px;
+  border-radius: 7px;
+  background-color: #1a1a1a;
+  border: 1px solid #313131;
+  width: 25%;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.info-item a {
+  padding: 20px 0px;
+  display: block;
+}
+
+.info-item-svg {
+  width: 22px;
+  position: absolute;
+  right: 13px;
+  top: 13px;
+  color: #3b3b3b;
+  transition: all 0.3s;
+}
+
+.info-item:hover {
+  box-shadow: 0 0 7px 0px white;
+}
+
+.info-item:hover svg {
+  color: white;
+}
+
+.contact-item-content svg {
+  font-size: 60px;
+}
+
+.contact-item-content span {
+  color: white;
+  display: block;
+  margin-top: 12px;
+}
+
+.contacts-banner2 {
+  margin-top: 140px;
+  padding: 72px 79px;
+  position: relative;
+  border-top-right-radius: 10px;
+  direction: rtl;
+}
+
+.contacts-banner2 h2 {
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.contact-banner-content {
+  width: 50%;
+  direction: ltr;
+  max-width: 528px;
+}
+
+.contacts-abstract2 {
+  position: absolute;
+  right: 2px;
+  top: 5px;
+}
+
+.contact-img2 {
+  position: absolute;
+  left: 74px;
+  top: -96px;
+}
+
+.lets-connect {
+  width: 95%;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.lets-connect h2 {
+  font-size: 28px;
+  text-align: left;
+}
+
+.lets-connect p {
+  font-weight: 300;
+}
+
+.lets-connect-form {
+  margin-top: 30px;
+  border-radius: 12px;
+  border: 1px solid #353535;
+  padding: 30px 40px;
+}
+
+.lets-connect-form span {
+  transform: translate(-6px, 15px);
+  position: absolute;
+}
+
+.lets-connect-form button {
+  float: right;
+  margin: 7px 20px;
+  color: var(--theme-main-color);
+  border: 1px solid var(--theme-main-color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.lets-connect-form button:hover {
+  background-color: var(--theme-main-color);
+  color: black;
+}
+
+.lets-connect-form textarea {
+  margin: 20px;
+  background-color: unset;
+  border: 1px solid #353535;
+  border-radius: 8px;
+  padding: 15px 25px;
+  transition: all 0.3s;
+  font-size: 16px;
+  width: 96%;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.con-text {
+  margin: 20px;
+  background-color: unset;
+  border: 1px solid #353535;
+  border-radius: 8px;
+  padding: 15px 25px;
+  transition: all 0.3s;
+  font-size: 16px;
+  width: 332px;
+}
+
+.con-text-lable {
+  color: white;
+  margin: 20px;
+  font-size: 17px;
+}
+
+.con-check {
+  margin: 20px;
+  width: 20px;
+  height: 19px;
+}
+
+.con-check-label {
+  margin-top: -5px;
+}

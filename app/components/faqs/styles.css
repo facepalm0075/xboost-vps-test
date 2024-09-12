@@ -1,0 +1,52 @@
+.faq-item {
+  margin: 12px;
+}
+.faq-q {
+  font-size: 18px;
+  color: white;
+  background: rgb(49, 49, 49);
+  background: linear-gradient(
+    112deg,
+    rgba(49, 49, 49, 1) 0%,
+    rgba(33, 33, 33, 1) 100%
+  );
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #575757;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 14px 30px;
+}
+
+.faq-q:hover {
+  border: 1px solid #a9a9a9;
+}
+
+.faq-q svg {
+  float: right;
+}
+
+.faq-a {
+  border-radius: 12px;
+  color: var(--foreground-color-main);
+  font-size: 15px;  
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: all 0.3s;
+}
+
+.faq-a > div {
+  overflow: hidden;
+}
+
+.faq-a-active {  
+  grid-template-rows: 1fr;
+}
+
+.openicon{
+  transition: all 0.2s;
+}
+
+.openicon-active{
+  transform: rotate(180deg);
+}

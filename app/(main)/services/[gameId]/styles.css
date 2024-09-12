@@ -1,0 +1,136 @@
+.service-navbar {
+  width: 96%;
+  max-width: 1400px;
+  margin: auto;
+  background-color: #0f0f0fd5;
+  border-radius: 100px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  height: 50px;
+  padding: 0px 55px;
+  border: 1px solid #4b4b4b;
+  position: relative;
+}
+
+.service-navbar::before {
+  border-radius: 100px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  content: '';
+  position: absolute;
+  width: 99%;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  backdrop-filter: blur(5px);
+  top: 0;
+  z-index: -1;
+}
+
+.game-main img {
+  border-radius: 5px;
+  box-shadow: 0 0 7px 1px black;
+  object-fit: cover;
+  width: 33px;
+}
+
+.game-items-main {
+  background-color: #0f0f0f;
+  border: 1px solid #4b4b4b;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 26px;
+  box-shadow: 0 0 14px 0 black;
+  z-index: 10;
+  position: relative;
+  opacity: 0;
+  display: none;
+}
+
+.game-btn {
+  display: inline-flex;
+  color: rgb(155, 155, 155);
+  transition: all 0.3s;
+  padding: 7px 11px;
+  padding-bottom: 8px;
+}
+
+.game-active {
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+  display: inline-block;
+  animation-timing-function: ease;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    margin-top: 56px;
+    opacity: 0;
+  }
+  100% {
+    margin-top: 10px;
+    opacity: 1;
+  }
+}
+
+.game-items {
+  padding: 10px 7px;
+  padding-right: 20px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.game-items:hover {
+  background-color: rgb(97, 97, 97);
+  color: white;
+}
+
+.game-btn:hover {
+  color: white;
+}
+
+.type-btn {
+  height: 100%;
+  padding: 11px 13px;
+  transition: all 0.3s;
+  cursor: pointer;
+  padding-left: 3px;
+  font-size: 16px;
+}
+
+.type-btn:hover {
+  color: white;
+  background-color: #272727;
+}
+
+.type-btn-active {
+  color: white;
+  background-color: #272727;
+  box-shadow: inset 0px -11px 19px -14px var(--theme-main-color);
+  border-bottom: 0.5px solid var(--theme-main-color);
+}
+
+.type-btn-diactive {
+  color: #616161 !important;
+  background-color: unset !important;
+  cursor: default !important;
+}
+
+.type-btn-diactive svg {
+  color: #616161 !important;
+}
+
+.type-btn svg {
+  margin-right: 5px;
+  color: #b9b9b9;
+}
+
+.type-btn-active svg {
+  color: var(--theme-main-color);
+}
+
+.currency-img {
+  border-radius: 50px !important;
+}

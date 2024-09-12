@@ -1,0 +1,141 @@
+.work-main {
+  max-width: 1600px;
+  width: 90%;
+  margin: auto;
+  margin-top: 80px;
+}
+.work-btn-main {
+  display: flex;
+  justify-content: center;
+}
+
+.work-btn-main .work-btn:hover {
+  background-color: #313131;
+  transform: scale(1.07);
+}
+.work-btn {
+  padding: 41px 24px;
+  background-color: #212121;
+  border-radius: 19px;
+  width: 33%;
+  max-width: 400px;
+  margin: 0px 30px;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s;
+}
+
+.work-active {
+  background-color: #313131;
+  box-shadow: 0px 3px 0 1px #56f3ff;
+  transform: scale(1.07);
+}
+
+.work-btn-main .work-btn:nth-of-type(2) svg {
+  font-size: 54px;
+  transform: translate(1px, 2px);
+}
+
+.work-btn-main .work-btn:nth-of-type(3) svg {
+  max-height: 62px;
+}
+
+.work-btn svg {
+  font-size: 60px;
+  width: 84px;
+}
+
+.w-fix2 {
+  margin-top: 6px;
+}
+
+.work-btn-d2 {
+  max-width: 83%;
+  height: 1px;
+}
+
+.work-btn-d1 {
+  display: flex;
+}
+
+.work-btn h3 {
+  color: white;
+  font-size: 19px;
+}
+
+.w-icon {
+  width: 24px;
+  height: auto;
+  display: block;
+}
+
+.work-page {
+  width: 96%;
+  padding: 20px 50px;
+  max-width: 1367px;
+  border-radius: 19px;
+  background-color: #212121;
+  margin: auto;
+  margin-top: 50px;
+  box-shadow: 0 0 13px -4px black;
+}
+
+.progress {
+  transform: translate(-36px, 42px);
+}
+
+.bg-t {
+  transform: translate(-45px, -10px);
+  position: absolute;
+  opacity: 0.7;
+}
+
+.w-p-i {
+  margin: auto;
+}
+
+.w-p-c {
+  width: 100%;
+  display: flex;
+}
+
+.work-page-d1 {
+  padding: 10px;
+  width: 60%;
+  position: relative;
+}
+
+.work-page-d1 div {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 94%;
+}
+
+.work-page-d1 h4 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--theme-main-color);
+}
+
+.work-page-d1 p {
+  font-size: 18px;
+  margin-top: 40px;
+}
+
+.work-page-d1 ul {
+  list-style-type: disc;
+  font-size: 18px;
+  margin-top: 20px;
+  line-height: 34px;
+  margin-left: 20px;
+}
+
+.work-page-d2 {
+  padding: 10px;
+  width: 40%;
+}

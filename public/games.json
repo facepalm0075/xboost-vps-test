@@ -1,0 +1,52 @@
+{
+  "games": [
+    {
+      "h1": "CS: 2",
+      "imgSize": [200, 255],
+      "imgStyle": { "transform": "translate(122px, -160px" },
+      "imgSrc": "cs2-2.png"
+    },
+    {
+      "h1": "WoW",
+      "imgSize": [330, 255],
+      "imgStyle": { "transform": "translate(30px, -155px" },
+      "imgSrc": "wow.png"
+    },
+    {
+      "h1": "Apex",
+      "imgSize": [175, 255],
+      "imgStyle": { "transform": "translate(122px, -160px" },
+      "imgSrc": "apex.png"
+    },
+    {
+      "h1": "LoL",
+      "imgSize": [190, 285],
+      "imgStyle": { "transform": "translate(115px, -190px)" },
+      "imgSrc": "lol.png"
+    },
+    {
+      "h1": "Valorant",
+      "imgSize": [250, 257],
+      "imgStyle": { "transform": "translate(108px, -162px" },
+      "imgSrc": "Jett_Art2.png"
+    },
+    {
+      "h1": "R6: siege",
+      "imgSize": [210, 247],
+      "imgStyle": { "transform": "translate(110px, -152px" },
+      "imgSrc": "arshish2.png"
+    },
+    {
+      "h1": "Fortnite",
+      "imgSize": [225, 255],
+      "imgStyle": { "transform": "translate(122px, -160px" },
+      "imgSrc": "fortnite.png"
+    },
+    {
+      "h1": "Dota 2",
+      "imgSize": [360, 235],
+      "imgStyle": { "transform": "translate(87px, -141px)" },
+      "imgSrc": "dota2.png"
+    }
+  ]
+}

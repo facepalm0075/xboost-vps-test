@@ -1,0 +1,232 @@
+.hero-image {
+  mix-blend-mode: screen;
+  width: 778px;
+  right: 0;
+  margin-right: 19px;
+  z-index: -1;
+}
+
+.hero {
+  max-width: 1600px;
+  width: 96%;
+  margin: auto;
+  min-height: 526px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero h1 {
+  color: white;
+  font-weight: 600;
+  font-size: 52px;
+  text-transform: uppercase;
+  line-height: 50px;
+}
+
+.rgb-span {
+  background: linear-gradient(76deg, #56f3ff, #cf4bb3, #da6160);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rgb-span2 {
+  background: linear-gradient(76deg, #56f3ff, #da6160);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  max-width: 575px;
+  margin-top: 16px;
+  color: #c7c7c7;
+}
+
+.heroBtn {
+  background:
+    radial-gradient(
+        circle at 100% 100%,
+        #191919 0,
+        #191919 8px,
+        transparent 8px
+      )
+      0% 0%/9px 9px no-repeat,
+    radial-gradient(circle at 0 100%, #191919 0, #191919 8px, transparent 8px)
+      100% 0%/9px 9px no-repeat,
+    radial-gradient(circle at 100% 0, #191919 0, #191919 8px, transparent 8px)
+      0% 100%/9px 9px no-repeat,
+    radial-gradient(circle at 0 0, #191919 0, #191919 8px, transparent 8px) 100%
+      100%/9px 9px no-repeat,
+    linear-gradient(#191919, #191919) 50% 50% / calc(100% - 2px)
+      calc(100% - 18px) no-repeat,
+    linear-gradient(#191919, #191919) 50% 50% / calc(100% - 18px)
+      calc(100% - 2px) no-repeat,
+    linear-gradient(90deg, #56f3ff 0%, #da6160 100%);
+  border-radius: 9px;
+  padding: 11px 50px;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-top: 44px;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.heroBtn:hover {
+  box-shadow: 0px 0px 17px 8px black;
+}
+
+.hero-left {
+  width: 647px;
+}
+
+.h2-p {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+.game-card-main {
+  max-width: 1600px;
+  margin: auto;
+  margin-top: 60px;
+}
+
+.game-card {
+  width: 360px;
+  height: 215px;
+  background-color: #1f1f1f;
+  border: 1px solid #373737;
+  float: left;
+  margin: 45px 20px;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 33px;
+  border-bottom-left-radius: 33px;
+  border-bottom-right-radius: 7px;
+  box-shadow: 0 0 17px -4px black;
+  padding: 20px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.game-card:hover {
+  text-shadow: 0px 0px 12px white;
+  box-shadow: 0 0 28px 5px black;
+}
+
+.game-card h3 {
+  font-size: 25px;
+  font-weight: 600;
+  color: white;
+}
+
+.game-card-link {
+  transform: translate(10px, 68px);
+  transition: all 0.3s;
+}
+
+.game-card:hover .game-card-link {
+  transform: translate(10px, 68px) scale(1.2);
+}
+
+.game-img {
+  position: absolute;
+  z-index: 2;
+}
+
+.game-highlight1 {
+  width: 71px;
+  height: 71px;
+  background-color: #00ffff;
+  float: left;
+  border-radius: 50px;
+  filter: blur(54px);
+  transform: translate(-19px, -121px);
+}
+
+.game-highlight2 {
+  width: 71px;
+  height: 71px;
+  background-color: #ff6b00;
+  float: right;
+  border-radius: 50px;
+  filter: blur(60px);
+  transform: translate(21px, -109px);
+}
+
+.services-container {
+  display: flex;
+  max-width: 1600px;
+  width: 95%;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.service-item {
+  width: 33%;
+  padding: 5px 74px;
+}
+
+.service-item svg {
+  font-size: 100px;
+  display: block;
+  margin: auto;
+}
+
+.service-item h3 {
+  color: white;
+  text-align: center;
+  font-size: 22px;
+  margin-top: 13px;
+}
+
+.service-item p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.service-item div {
+  color: var(--theme-main-color);
+  border: 1px solid var(--theme-main-color);
+  background-color: var(--background-main-color);
+  border-radius: 5px;
+  padding: 5px 20px;
+  width: 205px;
+  text-align: center;
+  margin: auto;
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 35px;
+  transition: all 0.3s;
+}
+
+.service-item div:hover {
+  background-color: var(--theme-main-color);
+  border: 1px solid var(--background-main-color);
+  color: black;
+  cursor: pointer;
+}
+
+.service-vl {
+  height: 342px;
+  border: 1px solid #262626;
+  display: -webkit-inline-box;
+}
+
+.faqs-container {
+  width: 96%;
+  max-width: 1600px;
+  margin: auto;
+  margin-top: 40px;
+  display: flex;
+}
+
+.faqs-c-i {
+  width: 50%;
+}

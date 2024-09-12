@@ -1,0 +1,600 @@
+{
+  "games": [
+    {
+      "game-name": "r6",
+      "orders": {
+        "boosting": [
+          {
+            "order-name": "rank-boost",
+            "content": {
+              "data": {
+                "main-data": [
+                  {
+                    "rankName": "Cooper",
+                    "rankImg": "r6-cooper-5.avif",
+                    "rankColor": "#e90000",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 0,
+                        "img": "r6-cooper-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 100,
+                        "img": "r6-cooper-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 200,
+                        "img": "r6-cooper-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 300,
+                        "img": "r6-cooper-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 400,
+                        "img": "r6-cooper-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Bronze",
+                    "rankImg": "r6-bronze-5.avif",
+                    "rankColor": "#e97e00",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 500,
+                        "img": "r6-bronze-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 600,
+                        "img": "r6-bronze-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 700,
+                        "img": "r6-bronze-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 800,
+                        "img": "r6-bronze-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 900,
+                        "img": "r6-bronze-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Silver",
+                    "rankImg": "r6-silver-5.avif",
+                    "rankColor": "white",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 1000,
+                        "img": "r6-silver-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 1100,
+                        "img": "r6-silver-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 1200,
+                        "img": "r6-silver-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 1300,
+                        "img": "r6-silver-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 1400,
+                        "img": "r6-silver-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Gold",
+                    "rankImg": "r6-gold-5.avif",
+                    "rankColor": "#ffec5f",
+
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 1500,
+                        "img": "r6-gold-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 1600,
+                        "img": "r6-gold-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 1700,
+                        "img": "r6-gold-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 1800,
+                        "img": "r6-gold-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 1900,
+                        "img": "r6-gold-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Platinum",
+                    "rankImg": "r6-platinum-5.avif",
+                    "rankColor": "#4affe6",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 2000,
+                        "img": "r6-platinum-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 2100,
+                        "img": "r6-platinum-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 2200,
+                        "img": "r6-platinum-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 2300,
+                        "img": "r6-platinum-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 2400,
+                        "img": "r6-platinum-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Emerald",
+                    "rankImg": "r6-emerald-5.avif",
+                    "rankColor": "#00b570",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 2500,
+                        "img": "r6-emerald-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 2600,
+                        "img": "r6-emerald-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 2700,
+                        "img": "r6-emerald-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 2800,
+                        "img": "r6-emerald-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 2900,
+                        "img": "r6-emerald-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Diamond",
+                    "rankImg": "r6-diamond-5.avif",
+                    "rankColor": "#a67eff",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 3000,
+                        "img": "r6-diamond-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 3100,
+                        "img": "r6-diamond-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 3200,
+                        "img": "r6-diamond-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 3300,
+                        "img": "r6-diamond-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 3400,
+                        "img": "r6-diamond-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Champion",
+                    "rankImg": "r6-champion.avif",
+                    "rankColor": "#ff4485",
+                    "rankNums": [
+                      {
+                        "content": "MMR",
+                        "mmr": 3500,
+                        "img": "r6-champion.avif"
+                      }
+                    ]
+                  }
+                ],
+                "extra-options": [
+                  {
+                    "name": "play-offline",
+                    "value": "FREE",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  },
+                  {
+                    "name": "operator-perfrence",
+                    "value": "10%",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  },
+                  {
+                    "name": "streaming",
+                    "value": "30%",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  },
+                  {
+                    "name": "play-with-booster",
+                    "value": "40%",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  },
+                  {
+                    "name": "express-delivery",
+                    "value": "50%",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  }
+                ],
+                "op2": [
+                  {
+                    "items": [
+                      { "value": "FREE", "content": "africa" },
+                      { "value": "FREE", "content": "europe" },
+                      { "value": "FREE", "content": "usa" },
+                      { "value": "FREE", "content": "me" }
+                    ],
+                    "title": "Server"
+                  },
+                  {
+                    "items": [
+                      { "value": "FREE", "content": "10+ RR" },
+                      { "value": "FREE", "content": "20+ RR" },
+                      { "value": "FREE", "content": "30+ RR" },
+                      { "value": "FREE", "content": "45+ RR" }
+                    ],
+                    "title": "RR Gain"
+                  },
+                  {
+                    "items": [
+                      { "value": "FREE", "content": "0-20 RR" },
+                      { "value": "FREE", "content": "21-40 RR" },
+                      { "value": "FREE", "content": "41-60 RR" },
+                      { "value": "FREE", "content": "61-80 RR" },
+                      { "value": "FREE", "content": "81-99 RR" }
+                    ],
+                    "title": "RR Amount"
+                  },
+                  {
+                    "items": [
+                      { "value": "FREE", "content": "PC" },
+                      { "value": "FREE", "content": "XBOX" },
+                      { "value": "FREE", "content": "Play Station" }
+                    ],
+                    "title": "Platform"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "order-name": "win-boost",
+            "content": {
+              "data": {
+                "main-data": [
+                  {
+                    "rankName": "Cooper",
+                    "rankImg": "r6-cooper-5.avif",
+                    "rankColor": "#e90000",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 0,
+                        "img": "r6-cooper-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 100,
+                        "img": "r6-cooper-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 200,
+                        "img": "r6-cooper-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 300,
+                        "img": "r6-cooper-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 400,
+                        "img": "r6-cooper-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Bronze",
+                    "rankImg": "r6-bronze-5.avif",
+                    "rankColor": "#e97e00",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 500,
+                        "img": "r6-bronze-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 600,
+                        "img": "r6-bronze-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 700,
+                        "img": "r6-bronze-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 800,
+                        "img": "r6-bronze-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 900,
+                        "img": "r6-bronze-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Silver",
+                    "rankImg": "r6-silver-5.avif",
+                    "rankColor": "white",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 1000,
+                        "img": "r6-silver-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 1100,
+                        "img": "r6-silver-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 1200,
+                        "img": "r6-silver-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 1300,
+                        "img": "r6-silver-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 1400,
+                        "img": "r6-silver-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Gold",
+                    "rankImg": "r6-gold-5.avif",
+                    "rankColor": "#ffec5f",
+
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 1500,
+                        "img": "r6-gold-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 1600,
+                        "img": "r6-gold-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 1700,
+                        "img": "r6-gold-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 1800,
+                        "img": "r6-gold-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 1900,
+                        "img": "r6-gold-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Platinum",
+                    "rankImg": "r6-platinum-5.avif",
+                    "rankColor": "#4affe6",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 2000,
+                        "img": "r6-platinum-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 2100,
+                        "img": "r6-platinum-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 2200,
+                        "img": "r6-platinum-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 2300,
+                        "img": "r6-platinum-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 2400,
+                        "img": "r6-platinum-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Emerald",
+                    "rankImg": "r6-emerald-5.avif",
+                    "rankColor": "#00b570",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 2500,
+                        "img": "r6-emerald-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 2600,
+                        "img": "r6-emerald-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 2700,
+                        "img": "r6-emerald-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 2800,
+                        "img": "r6-emerald-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 2900,
+                        "img": "r6-emerald-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Diamond",
+                    "rankImg": "r6-diamond-5.avif",
+                    "rankColor": "#a67eff",
+                    "rankNums": [
+                      {
+                        "content": "V",
+                        "mmr": 3000,
+                        "img": "r6-diamond-5.avif"
+                      },
+                      {
+                        "content": "IV",
+                        "mmr": 3100,
+                        "img": "r6-diamond-4.avif"
+                      },
+                      {
+                        "content": "III",
+                        "mmr": 3200,
+                        "img": "r6-diamond-3.avif"
+                      },
+                      {
+                        "content": "II",
+                        "mmr": 3300,
+                        "img": "r6-diamond-2.avif"
+                      },
+                      {
+                        "content": "I",
+                        "mmr": 3400,
+                        "img": "r6-diamond-1.avif"
+                      }
+                    ]
+                  },
+                  {
+                    "rankName": "Champion",
+                    "rankImg": "r6-champion.avif",
+                    "rankColor": "#ff4485",
+                    "rankNums": [
+                      {
+                        "content": "MMR",
+                        "mmr": 3500,
+                        "img": "r6-champion.avif"
+                      }
+                    ]
+                  }
+                ],
+                "extra-options": [
+                  {
+                    "id": "playOffline",
+                    "name": "Play Offline",
+                    "value": "FREE",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  },
+                  {
+                    "id": "operatorPerfrence",
+                    "name": "Operator Perfrence",
+                    "value": "10%",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  },
+                  {
+                    "id": "Streaming",
+                    "name": "Streaming",
+                    "value": "30%",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  },
+                  {
+                    "id": "playWithBooster",
+                    "name": "Play With Booster",
+                    "value": "40%",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  },
+                  {
+                    "id": "expressDelivery",
+                    "name": "Express Delivery",
+                    "value": "50%",
+                    "tooltip": "the booster appears offline during the order proggretion to ensure extra safty"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
