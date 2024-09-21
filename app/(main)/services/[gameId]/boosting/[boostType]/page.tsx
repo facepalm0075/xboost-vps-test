@@ -17,6 +17,7 @@ import Checkout from "./Checkout";
 import OrderDetails from "./OrderDetails";
 import SelectRange from "./SelectRange";
 import DesiredLVLRange from "./DesiredLVLRange";
+import Providers from "@/app/components/Providers";
 
 type props = {
   params: { gameId: string; boostType: string };
@@ -135,7 +136,9 @@ async function page({ params }: props) {
             <div className="gameTypeSpace"></div>
           </div>
           <div style={{ width: "30%" }} className="mt-7 relative">
-            <Checkout gameN={gameId} boostType={boostType} dbData={res} />
+            <Providers>
+              <Checkout gameN={gameId} boostType={boostType} dbData={res} />
+            </Providers>
           </div>
         </div>
       </StoreProvider>
