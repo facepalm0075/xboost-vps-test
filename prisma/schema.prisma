@@ -114,12 +114,13 @@ model boostingOrders {
 }
 
 model userOrders {
-  id           String  @id @default(uuid())
-  gameName     String
-  boostType    String
-  price        Float
-  boostDetails Json
-  User         User?   @relation(fields: [userEmail], references: [email])
-  userEmail    String?
-  status       String  @default("not paid")
+  id             String  @id @default(uuid())
+  gameName       String
+  boostType      String
+  price          Float
+  boostDetails   Json
+  User           User?   @relation(fields: [userEmail], references: [email])
+  userEmail      String?
+  status         String  @default("not paid")
+  accCrendential String
 }
