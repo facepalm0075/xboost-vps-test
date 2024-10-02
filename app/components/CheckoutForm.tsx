@@ -1,11 +1,19 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+	faCircleInfo,
+	faXmark,
+	faCircleCheck,
+	faCircleXmark,
+	faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { slce } from "../(main)/services/[gameId]/boosting/[boostType]/Checkout";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { addOrderJsonForm } from "./AddOrderJsomForm";
 import { AddOrderSubmitLoading } from "./Loadings";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 type props = {
 	gameName: string;
@@ -17,7 +25,8 @@ function CheckoutForm({ gameName, boostType }: props) {
 	const [inputData, setInputData] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const mainNameer = useAppSelector((state) => state.gameDetails);
-	const [responseData, setResponseData] = useState({ json: {Message:""}, code: 0 });
+	const [responseData, setResponseData] = useState({ json: { Message: "", Id: "" }, code: 0 });
+	const router = useRouter();
 	const nameer = mainNameer.gameDetails;
 	let data: slce = { gameName: "" };
 
@@ -42,8 +51,14 @@ function CheckoutForm({ gameName, boostType }: props) {
 	async function getresponse(data: any) {
 		postData("/api/add-order/", data).then((res) => {
 			setIsLoading(false);
-			setResponseData(res)
+			setResponseData(res);
 			setComponentState(2);
+			if (res.code === 200) {
+				// Make sure we're in the browser
+				if (typeof window !== "undefined") {
+					router.push(`/profile/orders/` + res.json.Id);
+				}
+			}
 		});
 	}
 	const submitHandler = () => {
@@ -66,10 +81,6 @@ function CheckoutForm({ gameName, boostType }: props) {
 				</div>
 				{componenState === 1 && (
 					<>
-						{/* <div className="checkout-form-info">
-							<FontAwesomeIcon icon={faCircleInfo} className="t-icon" />
-							<span>your game account credentilas can be changed any time.</span>
-						</div> */}
 						<div className="px-5">
 							<p className="cfpd my-5">
 								We need some of your game account credentilas, it help you to place
@@ -108,9 +119,37 @@ function CheckoutForm({ gameName, boostType }: props) {
 
 				{componenState === 2 && (
 					<>
-						code: {responseData.code}
-						<br />
-						message : {responseData.json.Message}
+						<div className="p-5">
+							{responseData.code === 200 && (
+								<>
+									<div
+										className="checkout-form-info"
+										style={{ backgroundColor: "green" }}
+									>
+										<FontAwesomeIcon icon={faCircleCheck} className="t-icon" />
+										<span>Order added sucssesfuly.</span>
+									</div>
+									<div className="mt-2">
+										order added; redirecting to order page...
+									</div>
+								</>
+							)}
+
+							{responseData.code === 403 && (
+								<>
+									<div
+										className="checkout-form-info"
+										style={{ backgroundColor: "blue" }}
+									>
+										<FontAwesomeIcon icon={faInfoCircle} className="t-icon" />
+										<span>duplicate my nigger.</span>
+									</div>
+									<div className="mt-2">
+										alredy have active order trash noob retarder nigrou
+									</div>
+								</>
+							)}
+						</div>
 					</>
 				)}
 			</div>

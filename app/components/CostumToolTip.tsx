@@ -46,7 +46,7 @@ export function ToolTipEO({ children, title }: props) {
             "& .MuiTooltip-arrow": { color: "#57f2fd" },
             bgcolor: "black",
             textAlign: "center",
-            padding: "10px",
+            padding: "5px 10px",
           },
         },
       }}

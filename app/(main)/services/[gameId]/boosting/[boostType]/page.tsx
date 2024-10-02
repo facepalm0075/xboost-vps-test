@@ -15,6 +15,7 @@ import SelectRange from "./SelectRange";
 import DesiredLVLRange from "./DesiredLVLRange";
 import Providers from "@/app/components/Providers";
 import CheckoutForm from "@/app/components/CheckoutForm";
+import React from "react";
 
 type props = {
 	params: { gameId: string; boostType: string };
@@ -75,7 +76,7 @@ async function page({ params }: props) {
 					<div className="mt-7 mr-3 pr-4 w-3/4">
 						{res.name === "rank boost" ? (
 							<>
-								<DesiredRank gameN={gameId} data={res.Data.ranksData} />
+								<DesiredRank gameN={gameId} data={res.Data.ranksData} rankMmrShow={res.Data.rankMmrShow} />
 								<div className="gameTypeSpace"></div>
 							</>
 						) : (

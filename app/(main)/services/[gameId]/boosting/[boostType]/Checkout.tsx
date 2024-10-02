@@ -10,6 +10,7 @@ import { titleCase } from "@/app/components/TitleCase";
 import { dbRes } from "./page";
 import { op, op2, rnk, rnkw } from "@/app/redux/Features/extraOptions/gameDetailsSlice";
 import { signIn, useSession } from "next-auth/react";
+import React from "react";
 type props = {
 	gameN: string;
 	boostType: string;
@@ -75,7 +76,8 @@ function Checkout({ gameN, boostType, dbData }: props) {
 
 	const applyer = (item: number) => {
 		const op1app = tOptions(item);
-		return op1app;
+		const op2app = dOptions(op1app);
+		return op2app;
 	};
 
 	//applying toggle options
@@ -91,6 +93,10 @@ function Checkout({ gameN, boostType, dbData }: props) {
 						let num = Number(item1.value.replace("%", ""));
 						let operator = (item / 100) * num;
 						sum += operator;
+					} else if (item1.value.includes("$")) {
+						let num = Number(item1.value.replace("$", ""));
+						let operator = item + num;
+						sum = operator;
 					}
 				});
 				return sum;
@@ -101,37 +107,83 @@ function Checkout({ gameN, boostType, dbData }: props) {
 
 	//applying dropdown options
 
-	const dOptions = (item: number) => {};
+	const dOptions = (item: number) => {
+		const ops = result?.gameOptions2;
+		if (ops) {
+			if (ops.length > 0) {
+				let sum = item;
+				ops.map((item1) => {
+					// for % options
+					if (item1.optionValue.includes("%")) {
+						let num = Number(item1.optionValue.replace("%", ""));
+						let operator = (item / 100) * num;
+						sum += operator;
+					} else if (item1.optionValue.includes("$")) {
+						let num = Number(item1.optionValue.replace("$", ""));
+						let operator = item + num;
+						sum = operator;
+					}
+				});
+				return sum;
+			}
+		}
+		return item;
+	};
 
 	// calcing rank price
-	const priceData = [];
 	const rankPrice = () => {
-		const data = dbData.Data.ranksData;
 		const userData = result?.gameRanks!;
-		let gain: string = "";
-		let resPrice = 0;
-		result?.gameOptions2?.map((item3, key) => {
-			if (item3.optionName.includes("Gain")) {
-				const str = item3.optionValue;
-				gain = str.replace(/\D/g, "");
-			}
-		});
-		let rpGain = Number(gain);
-		if (!rpGain) {
-			data.map((item) => {
-				item.rankNums.map((item2) => {
-					if (
-						item2.mmr >= userData?.currentRank?.rankNumber! &&
-						item2.mmr < userData?.desiredRank?.rankNumber!
-					) {
-						resPrice += item2.pricePerWin;
+		const ranksData = dbData.Data.ranksData;
+		let basePrice = 0;
+		if (userData.currentRank && userData.desiredRank) {
+			const requestDataC = userData.currentRank?.rankNumber!;
+			const requestDataD = userData.desiredRank?.rankNumber!;
+
+			let loopStart = false;
+			ranksData.forEach((item, index) => {
+				item.rankNums.forEach((item2, index2) => {
+					// finding next rank
+					let nextRankMmr =
+						ranksData[ranksData.length - 1].rankNums[
+							ranksData[ranksData.length - 1].rankNums.length - 1
+						].mmr;
+					let nextRankDiff = 0;
+					if (ranksData[index + 1] || item.rankNums[index + 2]) {
+						let rankCount = index;
+						let numsCount = index2 + 1;
+						if (index2 > item.rankNums.length - 2) {
+							rankCount = index + 1;
+							numsCount = 0;
+						}
+						nextRankMmr = ranksData[rankCount].rankNums[numsCount].mmr;
+						nextRankDiff = nextRankMmr - item2.mmr;
+					}
+
+					if (item2.mmr + nextRankDiff - 1 >= requestDataC) {
+						if (item2.mmr < requestDataD) {
+							// calcing between ranks for current mmr
+							if (!loopStart) {
+								const mmrDiff = requestDataC - item2.mmr;
+								const calc = (item2.pricePerWin / nextRankDiff) * mmrDiff;
+								basePrice -= Number(calc.toFixed(2));
+								loopStart = true;
+							}
+
+							// calcing between ranks for desired mmr
+							const more = requestDataD - item2.mmr;
+							if (more <= nextRankDiff) {
+								const calc = (item2.pricePerWin / nextRankDiff) * more;
+								basePrice += Number(calc.toFixed(2));
+							} else {
+								basePrice += item2.pricePerWin;
+							}
+						}
 					}
 				});
 			});
-		} else {
 		}
 
-		return Number(resPrice);
+		return Number(basePrice);
 	};
 
 	const { data: session, status } = useSession();
@@ -144,7 +196,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 			signIn();
 		}
 	};
-	const price = calcPrice(boostType);
+	const price = calcPrice(boostType).toFixed(2);
 
 	return (
 		<div id="checkout-c1i" className="checkout-c1">

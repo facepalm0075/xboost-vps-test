@@ -183,7 +183,7 @@
 }
 
 .checkout-c2 {
-	top: 156px;
+	top: 146px;
 	position: sticky;
 }
 
@@ -644,12 +644,10 @@
 }
 
 .checkout-form-info {
-	background-color: var(--theme-main-color);
+	color: white !important;
 	border-radius: 6px;
 	padding: 6px 12px;
-	color: black;
-	font-weight: 800;
-	margin-top: 6px;
+	font-weight: 700;
 }
 
 .checkout-form-info svg {

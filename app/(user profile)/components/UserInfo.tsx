@@ -1,6 +1,6 @@
 "use client";
 
-import LoginLoading from "@/app/components/Loadings";
+import {LoginLoading} from "@/app/components/Loadings";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

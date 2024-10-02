@@ -1,85 +1,123 @@
 .profile-layout-container {
-    width: 96%;
-    max-width: 1600px;
-    margin: auto;
-    height: 2000px;
+	width: 96%;
+	max-width: 1600px;
+	margin: auto;
+	height: 2000px;
 }
 
 .user-profile-sidebar-container {
-    border: 1px solid #292929;
-    background-color: #0c0c0cb6;
-    padding: 20px 10px;
-    border-radius: 30px;
-    position: sticky;
-    top: 95px;
-    height: calc(100vh - 130px);
-    min-width: 220px;
-    overflow: auto;
-    padding: 30px 0;
-    position: sticky;
-    box-shadow: 0 0 10px -2px black;
+	border: 1px solid #292929;
+	background-color: #0c0c0cb6;
+	padding: 20px 10px;
+	border-radius: 30px;
+	position: sticky;
+	top: 95px;
+	height: calc(100vh - 130px);
+	min-width: 220px;
+	overflow: auto;
+	padding: 30px 0;
+	position: sticky;
+	box-shadow: 0 0 10px -2px black;
 }
 
 .profile-header {
-    box-shadow: 0 0 10px -2px black;
-    margin-top: 0px;
-    height: 70px;
-    padding-top: 18px;
-    border-radius: 0;
-    border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
-    position: fixed;
-    z-index: 20;
-    width: 96%;
-    top: 0;
-    max-width: 1600px;
-    left: 50%;
-    transform: translateX(-50%);
-    border: unset;
-    border-bottom: 1px solid #4b4b4b;
+	box-shadow: 0 0 10px -2px black;
+	margin-top: 0px;
+	height: 70px;
+	padding-top: 18px;
+	border-radius: 0;
+	border-bottom-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	position: fixed;
+	z-index: 20;
+	width: 96%;
+	top: 0;
+	max-width: 1600px;
+	left: 50%;
+	transform: translateX(-50%);
+	border: unset;
+	border-bottom: 1px solid #4b4b4b;
 }
 
 .ud-profile-pic {
-    background-color: #157f8d;
-    border-radius: 50px;
-    width: 99px;
-    height: 99px;
-    position: relative;
+	background-color: #157f8d;
+	border-radius: 50px;
+	width: 99px;
+	height: 99px;
+	position: relative;
 }
 
 .ud-profile-pic img {
-    border-radius: 50px;
-    width: 99px;
-    height: 99px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1.03);
-    font-size: 19px;
-    box-shadow: 0 0 16px 1px #000000;
+	border-radius: 50px;
+	width: 99px;
+	height: 99px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%) scale(1.03);
+	font-size: 19px;
+	box-shadow: 0 0 16px 1px #000000;
 }
 
 .ud-profile-pic-span {
-    text-transform: uppercase;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 19px;
+	text-transform: uppercase;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 19px;
 }
 
 .ud-name {
-    color: var(--theme-main-color);
-    font-weight: 700;
-    font-size: 17px;
-    margin-top: 12px;
+	color: var(--theme-main-color);
+	font-weight: 700;
+	font-size: 17px;
+	margin-top: 12px;
 }
 
 .ud-email {
-    font-size: 13px;
-    color: #858585;
-    margin: 7px auto;
+	font-size: 13px;
+	color: #858585;
+	margin: 7px auto;
 }
 
 .ud-mode {
+}
+
+.order-id-container strong {
+	color: white;
+	font-size: 20px;
+}
+
+.order-id-container .oic-span1 {
+	-moz-user-select: text;
+	-khtml-user-select: text;
+	-webkit-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+	margin-left: 8px;
+	text-wrap: nowrap;
+}
+
+.order-id-container .oic-span2 {
+	padding: 5px 10px;
+	border: 1px solid #5b5b5b;
+	border-radius: 10px;
+	margin-left: 32px;
+	color: black;
+}
+
+.order-id-container svg {
+	font-size: 16px;
+	color: var(--theme-main-color);
+	background-color: #101010;
+	padding: 8px 3px;
+	border-radius: 7px;
+	cursor: pointer;
+	margin-left: 8px;
+	transition: all 0.3s;
+}
+
+.order-id-container svg:hover {
+	background-color: black;
 }

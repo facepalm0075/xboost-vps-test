@@ -5,7 +5,7 @@ import { dbRes } from "@/app/(main)/services/[gameId]/boosting/[boostType]/page"
 import { dropDownOptionValidator } from "./DropDownOptionValidator";
 import { toggleOptionsValidator } from "./ToogleOptionsValidator";
 
-export const rankBoostDetailsContentValidation = async (requestData: addOrderRequestType) => {
+export const rankBoostDetailsContentValidation = (requestData: addOrderRequestType,dbitems:any) => {
 	try {
 		// extracting request parts
 		const gameName = requestData.gameName;
@@ -13,16 +13,7 @@ export const rankBoostDetailsContentValidation = async (requestData: addOrderReq
 		const boostDetails = requestData.boostDetails as unknown as rankBoostOrderDetailsType;
 
 		// getting data from database for validating
-		const dbitems = await prisma.boostingOrders.findFirst({
-			where: {
-				orderedIn: {
-					game: {
-						name: gameName,
-					},
-				},
-				name: boostType,
-			},
-		});
+		
 
 		// if nothing found on database
 		if (!dbitems) return "order not found; Invalid game name";

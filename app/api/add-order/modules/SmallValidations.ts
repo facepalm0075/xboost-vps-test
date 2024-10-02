@@ -1,6 +1,5 @@
 import { addOrderNextRequest, addOrderRankBoostRequest } from "@/lib/schema";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/_options";
+import { Session } from "next-auth";
 
 export const baseValidation = (requestData: any) => {
 	const { error: zodError } = addOrderNextRequest.safeParse(requestData);
@@ -14,9 +13,7 @@ export const rankBoostValidation = (requestData: any) => {
 	return true;
 };
 
-export const authCheck = async () => {
-	const session = await getServerSession(authOptions);
+export const authCheck = async (session: Session | null) => {
 	//if (!session) return false;
-	//console.log(session?.user?.email)
 	return true;
 };
