@@ -21,6 +21,18 @@ const calcPrice = (requestData: addOrderRequestType, boostType: string, dbitems:
 };
 
 const rankBoostPrice = (requestData: rankBoostOrderDetailsType, dbData: dbRes) => {
+	// option applyer function
+	const applyer = (basePrice: number) => {
+		const optionsPrice = dropNtogglePrice(
+			basePrice,
+			requestData.dropDownOptions,
+			dbData.extraOptions2,
+			requestData.toggleOptions,
+			dbData.extraOptions
+		);
+		return Number(discountCalc(optionsPrice, dbData.discount).toFixed(2));
+	};
+
 	const ranksData = dbData.Data.ranksData;
 	let basePrice = 0;
 	let loopStart = false;
@@ -49,7 +61,7 @@ const rankBoostPrice = (requestData: rankBoostOrderDetailsType, dbData: dbRes) =
 					if (!loopStart) {
 						const mmrDiff = requestData.currentRank - item2.mmr;
 						const calc = (item2.pricePerWin / nextRankDiff) * mmrDiff;
-						basePrice -= Number(calc.toFixed(2));
+						basePrice -= calc;
 						loopStart = true;
 					}
 
@@ -57,7 +69,7 @@ const rankBoostPrice = (requestData: rankBoostOrderDetailsType, dbData: dbRes) =
 					const more = requestData.desiredRank - item2.mmr;
 					if (more <= nextRankDiff) {
 						const calc = (item2.pricePerWin / nextRankDiff) * more;
-						basePrice += Number(calc.toFixed(2));
+						basePrice += calc;
 					} else {
 						basePrice += item2.pricePerWin;
 					}
@@ -65,15 +77,16 @@ const rankBoostPrice = (requestData: rankBoostOrderDetailsType, dbData: dbRes) =
 			}
 		});
 	});
-	console.log(basePrice);
-	const optionsPrice = dropNtogglePrice(
-		basePrice,
-		requestData.dropDownOptions,
-		dbData.extraOptions2,
-		requestData.toggleOptions,
-		dbData.extraOptions
-	);
-	return optionsPrice;
+	return applyer(basePrice);
+};
+
+// calc discount
+const discountCalc = (item: number, dbDiscount: number | null) => {
+	if (dbDiscount) {
+		const discount = (item * dbDiscount) / 100;
+		return item - discount;
+	}
+	return item;
 };
 
 const dropNtogglePrice = (

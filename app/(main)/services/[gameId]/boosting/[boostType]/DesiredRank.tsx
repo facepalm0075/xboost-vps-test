@@ -3,7 +3,7 @@
 import { RightARROW } from "../svgs";
 
 import { useAppSelector, useAppDispatch } from "@/app/redux/hooks";
-import { gameDefiendCheck, rankChanged } from "@/app/redux/Features/extraOptions/gameDetailsSlice";
+import { gameDefiendCheck, rankChanged } from "@/app/redux/Features/ordersDetails/rankBoostSlice";
 import RankSelect from "./RankSelect";
 import { rnkDet, md } from "@/app/components/types/Types";
 import { useEffect } from "react";
@@ -73,8 +73,17 @@ const getNext = (cr: number, data: md[]) => {
 };
 
 export default function DesiredRank({ gameN, data, rankMmrShow }: mainProps) {
-	const mainNameer = useAppSelector((state) => state.gameDetails);
-	const nameer = mainNameer.gameDetails;
+	const mainNameer = useAppSelector((state) => state.rankBoostSlice);
+	const nameer = mainNameer.rankBoostState;
+	let rank = [0, 0];
+	nameer.forEach((item) => {
+		if (item.gameName === gameN) {
+			rank = [
+				item.gameRanks?.currentRank?.rankNumber!,
+				item.gameRanks?.desiredRank?.rankNumber!,
+			];
+		}
+	});
 
 	const dispatch = useAppDispatch();
 	const initVal = {
@@ -92,8 +101,9 @@ export default function DesiredRank({ gameN, data, rankMmrShow }: mainProps) {
 		},
 	};
 	useEffect(() => {
+		dispatch(gameDefiendCheck(gameN));
 		nameer.map((item) => {
-			if (item.gameName === gameN) {
+			if (item.gameName === gameN) {				
 				if (!item.gameRanks) {
 					dispatch(rankChanged({ game: gameN, ranks: initVal }));
 				} else if (!item.gameRanks.currentRank) {
@@ -166,13 +176,12 @@ export default function DesiredRank({ gameN, data, rankMmrShow }: mainProps) {
 			<div className="w-1/2">
 				<RankSelect
 					currentChanged={mainCurrentHandler}
-					name={gameN}
 					data={data}
 					type="current"
 					mmrEnabled={rankMmrShow[0]}
 					desiredChanged={() => {}}
-					mainNameer={mainNameer}
 					lastRank={false}
+					rankNumber={rank[0]}
 				/>
 			</div>
 			<div className="selectRank-arrow">
@@ -182,13 +191,12 @@ export default function DesiredRank({ gameN, data, rankMmrShow }: mainProps) {
 				<RankSelect
 					desiredChanged={mainDesiredHandler}
 					currentChanged={() => {}}
-					name={gameN}
 					data={data}
 					type="desired"
 					mmrEnabled={rankMmrShow[1]}
 					disables={getCurrentRankValue()}
-					mainNameer={mainNameer}
 					lastRank={true}
+					rankNumber={rank[1]}
 				/>
 			</div>
 		</div>

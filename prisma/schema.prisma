@@ -111,6 +111,7 @@ model boostingOrders {
   extraOptions  Json
   extraOptions2 Json
   isEnabled     Boolean @default(false)
+  discount      Int?
 }
 
 model userOrders {

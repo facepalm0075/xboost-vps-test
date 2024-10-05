@@ -217,8 +217,9 @@
 }
 
 .checkoutDetails-label-t {
-	color: #00737b;
-	font-weight: 800;
+	/*color: #00737b;*/
+	color: var(--theme-main-color);
+	font-weight: 700;
 }
 
 .checkoutDetails-label {
@@ -315,9 +316,9 @@
 }
 
 .price span {
-	color: #474747;
+	color: #757575;
 	text-decoration: line-through;
-	text-decoration-color: #5d5d5d;
+	text-decoration-color: #858585;
 }
 
 .price strong {

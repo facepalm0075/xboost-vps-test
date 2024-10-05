@@ -31,6 +31,8 @@ export type dbRes = {
 	Data: boostingOrderJson;
 	extraOptions: extraOptionsType;
 	extraOptions2: options2Type;
+	isEnabled: boolean;
+	discount: number | null;
 };
 
 async function page({ params }: props) {
@@ -70,82 +72,100 @@ async function page({ params }: props) {
 	const res: dbRes = dbitems! as unknown as dbRes;
 	return (
 		<>
-			<StoreProvider>
-			<CheckoutForm boostType={boostType} gameName={gameId} />
-				<div className="gameType-main flex">
-					<div className="mt-7 mr-3 pr-4 w-3/4">
-						{res.name === "rank boost" ? (
-							<>
-								<DesiredRank gameN={gameId} data={res.Data.ranksData} rankMmrShow={res.Data.rankMmrShow} />
-								<div className="gameTypeSpace"></div>
-							</>
-						) : (
-							""
-						)}
-						{res.name === "rank wins" ? (
-							<>
-								<DesiredWins
-									gameN={gameId}
-									data={res.Data.ranksData}
-									maxWins={res.Data.maxWins}
-								/>
-								<div className="gameTypeSpace"></div>
-							</>
-						) : (
-							""
-						)}
-						{res.name === "unrated matches" ? (
-							<>
-								<DesiredWinsUnranked
-									gameN={gameId}
-									maxWins={res.Data.unrankMaxWins.wins}
-								/>
-								<div className="gameTypeSpace"></div>
-							</>
-						) : (
-							""
-						)}
-						{res.name === "level boost" ? (
-							<>
-								<DesiredLVLRange
-									gameN={gameId}
-									dis={res.Data.lvlRange.dis}
-									maxNum={res.Data.lvlRange.maxNum}
-								/>
-								<div className="gameTypeSpace"></div>
-							</>
-						) : (
-							""
-						)}
+			{res.isEnabled ? (
+				<>
+					<StoreProvider>
+						<CheckoutForm boostType={boostType} gameName={gameId} />
+						<div className="gameType-main flex">
+							<div className="mt-7 mr-3 pr-4 w-3/4">
+								{res.name === "rank boost" ? (
+									<>
+										<DesiredRank
+											gameN={gameId}
+											data={res.Data.ranksData}
+											rankMmrShow={res.Data.rankMmrShow}
+										/>
+										<div className="gameTypeSpace"></div>
+									</>
+								) : (
+									""
+								)}
+								{res.name === "rank wins" ? (
+									<>
+										<DesiredWins
+											gameN={gameId}
+											data={res.Data.ranksData}
+											maxWins={res.Data.maxWins}
+										/>
+										<div className="gameTypeSpace"></div>
+									</>
+								) : (
+									""
+								)}
+								{res.name === "unrated matches" ? (
+									<>
+										<DesiredWinsUnranked
+											gameN={gameId}
+											maxWins={res.Data.unrankMaxWins.wins}
+										/>
+										<div className="gameTypeSpace"></div>
+									</>
+								) : (
+									""
+								)}
+								{res.name === "level boost" ? (
+									<>
+										<DesiredLVLRange
+											gameN={gameId}
+											dis={res.Data.lvlRange.dis}
+											maxNum={res.Data.lvlRange.maxNum}
+										/>
+										<div className="gameTypeSpace"></div>
+									</>
+								) : (
+									""
+								)}
 
-						<div className="gameType-cont">
-							<h2>Extra Options</h2>
-							<div className="">
-								<div className="">
-									<div className="gameType-base eomain">
-										<OptionDropdown gameN={gameId} data={res.extraOptions2} />
+								<div className="gameType-cont">
+									<h2>Extra Options</h2>
+									<div className="">
+										<div className="">
+											<div className="gameType-base eomain">
+												<OptionDropdown
+													gameN={gameId}
+													data={res.extraOptions2}
+													boostType={boostType}
+												/>
+											</div>
+										</div>
+										<div className="mt-4">
+											<OptionToggle
+												game={gameId}
+												data={res.extraOptions}
+												boostType={boostType}
+											/>
+										</div>
 									</div>
 								</div>
-								<div className="mt-4">
-									<OptionToggle game={gameId} data={res.extraOptions} />
-								</div>
+								<div className="gameTypeSpace"></div>
+							</div>
+							<div style={{ width: "30%" }} className="mt-7 relative">
+								<Providers>
+									<Checkout gameN={gameId} boostType={boostType} dbData={res} />
+								</Providers>
 							</div>
 						</div>
-						<div className="gameTypeSpace"></div>
+					</StoreProvider>
+					<div className="flex">
+						<div className="mr-3 pr-4 w-3/4">
+							<OrderDetails />
+						</div>
+						<div style={{ width: "30%" }}></div>
 					</div>
-					<div style={{ width: "30%" }} className="mt-7 relative">
-						<Providers>
-							<Checkout gameN={gameId} boostType={boostType} dbData={res} />
-						</Providers>
-					</div>
-				</div>
-			</StoreProvider>
-			<div className="flex">
-				<div className="mr-3 pr-4 w-3/4">
-					<OrderDetails />
-				</div>
-				<div style={{ width: "30%" }}></div>
-			</div>
+				</>
+			) : (
+				"order temporary disabled"
+			)}
 		</>
 	);
 }

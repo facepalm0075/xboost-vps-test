@@ -5,10 +5,10 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
+import { useAppSelector } from "@/app/redux/hooks";
 import { titleCase } from "@/app/components/TitleCase";
 import { dbRes } from "./page";
-import { op, op2, rnk, rnkw } from "@/app/redux/Features/extraOptions/gameDetailsSlice";
+import { op, op2, rnk, rnkw } from "@/app/components/types/Types";
 import { signIn, useSession } from "next-auth/react";
 import React from "react";
 type props = {
@@ -48,17 +48,45 @@ function Checkout({ gameN, boostType, dbData }: props) {
 		setLoading(2);
 	}, []);
 
-	const mainNameer = useAppSelector((state) => state.gameDetails);
-	const nameer = mainNameer.gameDetails;
+	const OptionMainNameer = useAppSelector((state) => state.extraOptionSlice);
+	const OptionNameer = OptionMainNameer.extraOptiontState;
 	let data: slce = { gameName: "" };
 
-	nameer.map((item) => {
-		if (item.gameName === gameN) {
-			data = item;
+	if (boostType === "rank boost") {
+		const mainNameer = useAppSelector((state) => state.rankBoostSlice);
+		const nameer = mainNameer.rankBoostState;
+		nameer.forEach((item) => {
+			if (item.gameName === gameN) {
+				data = item;
+			}
+		});
+	} else if (boostType === "rank wins") {
+		const mainNameer = useAppSelector((state) => state.rankWinsSlice);
+		const nameer = mainNameer.rankWinsState;
+		nameer.forEach((item) => {
+			if (item.gameName === gameN) {
+				data = item;
+			}
+		});
+	} else if (boostType === "level boost") {
+		const mainNameer = useAppSelector((state) => state.lvlBoost);
+		const nameer = mainNameer.lvlBoostState;
+		nameer.forEach((item) => {
+			if (item.gameName === gameN) {
+				data = item;
+			}
+		});
+	}
+	let result = data;
+
+	let eoResult = { op: [] as op[] | undefined };
+	let eo2Result = { op2: [] as op2[] | undefined };
+	OptionNameer.forEach((item) => {
+		if (item.gameName === gameN && item.boostType === boostType) {
+			eoResult.op = item.gameOptions;
+			eo2Result.op2 = item.gameOptions2;
 		}
 	});
-	let result = data;
-	console.log(result);
 
 	//---------------------------------------------------------------------------
 
@@ -68,6 +96,10 @@ function Checkout({ gameN, boostType, dbData }: props) {
 		switch (boostType) {
 			case "rank boost":
 				return applyer(rankPrice());
+			case "rank wins":
+				return applyer(rankWinsPrice());
+			case "level boost":
+				return applyer(lvlBoostPrice());
 		}
 		return 0.0;
 	};
@@ -80,10 +112,19 @@ function Checkout({ gameN, boostType, dbData }: props) {
 		return op2app;
 	};
 
+	// calc discount
+	const discountCalc = (item: number) => {
+		if (dbData.discount) {
+			const discount = (item * dbData.discount) / 100;
+			return item - discount;
+		}
+		return item;
+	};
+
 	//applying toggle options
 
 	const tOptions = (item: number) => {
-		const ops = result?.gameOptions!;
+		const ops = eoResult.op;
 		if (ops) {
 			if (ops.length > 0) {
 				let sum = item;
@@ -108,7 +149,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 	//applying dropdown options
 
 	const dOptions = (item: number) => {
-		const ops = result?.gameOptions2;
+		const ops = eo2Result.op2;
 		if (ops) {
 			if (ops.length > 0) {
 				let sum = item;
@@ -135,7 +176,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 		const userData = result?.gameRanks!;
 		const ranksData = dbData.Data.ranksData;
 		let basePrice = 0;
-		if (userData.currentRank && userData.desiredRank) {
+		if (userData && userData.currentRank && userData.desiredRank) {
 			const requestDataC = userData.currentRank?.rankNumber!;
 			const requestDataD = userData.desiredRank?.rankNumber!;
 
@@ -165,7 +206,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 							if (!loopStart) {
 								const mmrDiff = requestDataC - item2.mmr;
 								const calc = (item2.pricePerWin / nextRankDiff) * mmrDiff;
-								basePrice -= Number(calc.toFixed(2));
+								basePrice -= calc;
 								loopStart = true;
 							}
 
@@ -173,7 +214,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 							const more = requestDataD - item2.mmr;
 							if (more <= nextRankDiff) {
 								const calc = (item2.pricePerWin / nextRankDiff) * more;
-								basePrice += Number(calc.toFixed(2));
+								basePrice += calc;
 							} else {
 								basePrice += item2.pricePerWin;
 							}
@@ -184,6 +225,30 @@ function Checkout({ gameN, boostType, dbData }: props) {
 		}
 
 		return Number(basePrice);
+	};
+
+	// calcing rank wins price
+	const rankWinsPrice = () => {
+		const userData = result?.gameRankWins!;
+		const ranksData = dbData.Data.ranksData;
+		let basePrice = 0;
+		ranksData.forEach((item) => {
+			item.rankNums.forEach((item2) => {
+				if (item2.mmr === userData?.currentRank?.rankNumber) {
+					basePrice = userData.wins! * item2.pricePerWin;
+				}
+			});
+		});
+		return basePrice;
+	};
+
+	// calcing lvl boost price
+	const lvlBoostPrice = () => {
+		const userData = result?.gameLVLrange!;
+		const ranksData = dbData.Data.lvlRange;
+		let basePrice = (userData[1] - userData[0]) * ranksData.price;
+
+		return basePrice;
 	};
 
 	const { data: session, status } = useSession();
@@ -197,6 +262,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 		}
 	};
 	const price = calcPrice(boostType).toFixed(2);
+	const discounted = discountCalc(Number(price)).toFixed(2);
 
 	return (
 		<div id="checkout-c1i" className="checkout-c1">
@@ -273,12 +339,12 @@ function Checkout({ gameN, boostType, dbData }: props) {
 						)}
 					</div>
 					<div>
-						{result?.gameOptions2?.map((item, key) => {
+						{eo2Result?.op2?.map((item, key) => {
 							if (item.optionValue.includes("calc")) return;
 							return (
 								<div key={key} className="checkoutDetails">
 									<span>
-										<span className="checkoutDetails-label-t">{`${item.optionName}: `}</span>
+										<span className="checkoutDetails-label-t">{`${item.optionName} : `}</span>
 										{item.optionContent}
 									</span>
 									<span className="checkoutDetails-label">
@@ -287,7 +353,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 								</div>
 							);
 						})}
-						{result?.gameOptions?.map((item, key) => {
+						{eoResult?.op?.map((item, key) => {
 							return (
 								<div key={key} className="checkoutDetails">
 									<span>{titleCase(item.optionName)}</span>
@@ -307,8 +373,12 @@ function Checkout({ gameN, boostType, dbData }: props) {
 					</div>
 					<div className="discount">
 						<div>
-							<span>Discount :</span>
-							<strong>10%</strong>
+							{dbData.discount && (
+								<>
+									<span>Discount :</span>
+									<strong>{dbData.discount}%</strong>
+								</>
+							)}
 						</div>
 						{/* <div>
               <span>Promo Code :</span>
@@ -318,13 +388,13 @@ function Checkout({ gameN, boostType, dbData }: props) {
 					<div className="total">
 						<span>Total Price :</span>
 						<div className="price">
-							<span>$250.50</span>
-							<strong>${price}</strong>
+							{dbData.discount && <span>${price}</span>}
+							<strong>${discounted}</strong>
 						</div>
 					</div>
 					<div className="flex justify-center">
 						<div onClick={handleCheckout} className="checkout-final">
-							<span>Checkout (${price})</span>
+							<span>Checkout (${discounted})</span>
 						</div>
 					</div>
 				</div>

@@ -3,6 +3,7 @@ import GameNavbar from "./GameNavbar";
 import "./styles.css";
 import Script from "next/script";
 import prisma from "@/src/lib/db";
+import React from "react";
 type props = {
   params: { gameId: string };
   children: React.ReactNode;

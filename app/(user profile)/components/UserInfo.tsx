@@ -1,17 +1,9 @@
 "use client";
 
-import {LoginLoading} from "@/app/components/Loadings";
+import { LoginLoading } from "@/app/components/Loadings";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faEllipsisV,
-	faRightFromBracket,
-	faChartLine,
-	faBell,
-	faBasketShopping,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
+import React from "react";
 
 function UserInfo() {
 	const { data: session, status } = useSession();
@@ -40,24 +32,6 @@ function UserInfo() {
 					{session?.user?.name && <div className="ud-name">{session?.user?.name}</div>}
 					{session?.user?.email && <div className="ud-email">{session?.user?.email}</div>}
 					<div className="ud-mode">User Mode</div>
-				</div>
-				<Link href="/profile/dashboard">
-					<div className="profc-item">
-						<FontAwesomeIcon icon={faChartLine} className="mr-1" />
-						Dashboard
-					</div>
-				</Link>
-				<div className="profc-item">
-					<FontAwesomeIcon icon={faBasketShopping} className="mr-1" />
-					Orders
-				</div>
-
-				<div className="profc-item">
-					<FontAwesomeIcon icon={faBell} className="mr-1" />
-					Notification
-					<div className="prof-item-notif2">
-						<span>2</span>
-					</div>
 				</div>
 			</div>
 		</>
