@@ -1,11 +1,16 @@
 import prisma from "@/src/lib/db";
-import { addOrderRequestType, rankBoostOrderDetailsType } from "../route";
+import {
+	addOrderRequestType,
+	levelBoostOrderDetailsType,
+	rankBoostOrderDetailsType,
+	rankWinsOrderDetailsType,
+} from "../route";
 import { Prisma } from "@prisma/client";
 import { dbRes } from "@/app/(main)/services/[gameId]/boosting/[boostType]/page";
 import { dropDownOptionValidator } from "./DropDownOptionValidator";
 import { toggleOptionsValidator } from "./ToogleOptionsValidator";
 
-export const rankBoostDetailsContentValidation = (
+export const levelBoostDetailsContentValidation = (
 	requestData: addOrderRequestType,
 	dbitems: any
 ) => {
@@ -13,28 +18,17 @@ export const rankBoostDetailsContentValidation = (
 		// extracting request parts
 		const gameName = requestData.gameName;
 		const boostType = requestData.boostType;
-		const boostDetails = requestData.boostDetails as unknown as rankBoostOrderDetailsType;
+		const boostDetails = requestData.boostDetails as unknown as levelBoostOrderDetailsType;
 
 		// changing db reesponse type
 		const res: dbRes = dbitems! as unknown as dbRes;
 
-		// validating current rank
-		const CurrentRankMin = res.Data.ranksData[0].rankNums[0].mmr;
-		const CurrentRankMax =
-			res.Data.ranksData[res.Data.ranksData.length - 1].rankNums[
-				res.Data.ranksData[res.Data.ranksData.length - 1].rankNums.length - 1
-			].mmr;
-		if (boostDetails.currentRank < CurrentRankMin || boostDetails.currentRank >= CurrentRankMax)
-			return "Invalid current rank";
-
-		// validating desired rank
-		const DesiredRankMin = boostDetails.currentRank;
-		const DesiredRankMax =
-			res.Data.ranksData[res.Data.ranksData.length - 1].rankNums[
-				res.Data.ranksData[res.Data.ranksData.length - 1].rankNums.length - 1
-			].mmr;
-		if (boostDetails.desiredRank <= DesiredRankMin || boostDetails.desiredRank > DesiredRankMax)
-			return "Invalid desired rank";
+		// validating current and desired level
+		if (boostDetails.currentLevel < 1) return "Invalid current level";
+		else if (boostDetails.desiredLevel > res.Data.lvlRange.maxNum)
+			return "Invalid desired level";
+		else if (boostDetails.desiredLevel - boostDetails.currentLevel < res.Data.lvlRange.dis)
+			return "Invalid level distance";
 
 		// validating drop down options name + content and numbers
 		const dropDownOptionValidatorResult = dropDownOptionValidator(

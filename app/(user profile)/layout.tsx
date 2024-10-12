@@ -8,37 +8,37 @@ import Sidebar from "./components/Sidebar";
 import "./styles.css";
 
 export const metadata: Metadata = {
-  title: "xBoost",
-  description: "Future of Boosting",
+	title: "xBoost",
+	description: "Future of Boosting",
 };
 
 export const viewport: Viewport = {
-  initialScale: 1.0,
-  width: "device-width",
+	initialScale: 1.0,
+	width: "device-width",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        id="body"
-        style={{ fontWeight: "400", fontSize: "15px" }}
-        className={`${lexend.className} ${cn("min-h-screen bg-background font-sans antialiased", lexend.variable)}`}
-      >
-        <Navbar id2="sec" id="sec" headerClass="profile-header" />
-        <NextTopLoader speed={1500} showSpinner={false} />
-        <div className="flex profile-layout-container">
-          <div className="w-80">
-            <Sidebar />
-          </div>
-          <div className="w-full pl-5 pt-5">{children}</div>
-          <div></div>
-        </div>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body
+				id="body"
+				style={{ fontWeight: "400", fontSize: "15px" }}
+				className={`${lexend.className} ${cn("min-h-screen bg-background font-sans antialiased", lexend.variable)}`}
+			>
+				<Navbar id2="sec" id="sec" headerClass="profile-header" />
+				<NextTopLoader speed={1500} showSpinner={false} />
+				<div className="flex profile-layout-container">
+					<div className="w-80">
+						<Sidebar />
+					</div>
+					<div className="w-full px-5 pt-5">{children}</div>
+					<div className="w-80 h-40 border-neutral-700 border-2 rounded-2xl mt-7"></div>
+				</div>
+			</body>
+		</html>
+	);
 }

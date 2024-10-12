@@ -14,9 +14,11 @@ function CopyOrderId() {
 		}, 1500);
 	};
 	return (
-		<ToolTipEO title={status}>
+		<div className="CopyOrderId">
+			<ToolTipEO title={status}>
 			<FontAwesomeIcon icon={faCopy} className="t-icon" onClick={copyToClipBord} />
 		</ToolTipEO>
+		</div>
 	);
 }
 

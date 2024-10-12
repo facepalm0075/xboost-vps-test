@@ -24,15 +24,46 @@ function CheckoutForm({ gameName, boostType }: props) {
 	const [componenState, setComponentState] = useState(1);
 	const [inputData, setInputData] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-	const mainNameer = useAppSelector((state) => state.gameDetails);
+
 	const [responseData, setResponseData] = useState({ json: { Message: "", Id: "" }, code: 0 });
 	const router = useRouter();
-	const nameer = mainNameer.gameDetails;
-	let data: slce = { gameName: "" };
 
+	let data: slce = { gameName: "", gameOptions: [], gameOptions2: [] };
+
+	// rank boost
+	const mainNameer = useAppSelector((state) => state.rankBoostSlice);
+	const nameer = mainNameer.rankBoostState;
 	nameer.forEach((item) => {
 		if (item.gameName === gameName) {
-			data = item;
+			data.gameRanks = item.gameRanks;
+		}
+	});
+
+	// rank wins
+	const mainNameer2 = useAppSelector((state) => state.rankWinsSlice);
+	const nameer2 = mainNameer2.rankWinsState;
+	nameer2.forEach((item) => {
+		if (item.gameName === gameName) {
+			data.gameRankWins = item.gameRankWins;
+		}
+	});
+
+	// level boost
+	const mainNameer3 = useAppSelector((state) => state.lvlBoost);
+	const nameer3 = mainNameer3.lvlBoostState;
+	nameer3.forEach((item) => {
+		if (item.gameName === gameName) {
+			data.gameLVLrange = item.gameLVLrange;
+		}
+	});
+
+	const OptionMainNameer = useAppSelector((state) => state.extraOptionSlice);
+	const OptionNameer = OptionMainNameer.extraOptiontState;
+
+	OptionNameer.forEach((item2) => {
+		if (item2.gameName === gameName && item2.boostType === boostType) {
+			data.gameOptions = item2.gameOptions;
+			data.gameOptions2 = item2.gameOptions2;
 		}
 	});
 	let result = data;
@@ -62,10 +93,11 @@ function CheckoutForm({ gameName, boostType }: props) {
 		});
 	}
 	const submitHandler = () => {
-		setIsLoading(true);
-		const dabbe = addOrderJsonForm({ gameName, boostType, inputData, result });
-		console.log(dabbe);
-		getresponse(dabbe);
+		if (inputData !== "") {
+			setIsLoading(true);
+			const dabbe = addOrderJsonForm({ gameName, boostType, inputData, result });
+			getresponse(dabbe);
+		}
 	};
 	const closeHandler = () => {
 		const element = document.getElementById("cfc");
@@ -96,6 +128,9 @@ function CheckoutForm({ gameName, boostType }: props) {
 								placeholder="Username or Email..."
 								onChange={(e) => {
 									setInputData(e.target.value);
+								}}
+								onKeyDown={(e) => {
+									if (e.key === "Enter") submitHandler();
 								}}
 							/>
 						</div>
@@ -147,6 +182,19 @@ function CheckoutForm({ gameName, boostType }: props) {
 									<div className="mt-2">
 										alredy have active order trash noob retarder nigrou
 									</div>
+								</>
+							)}
+
+							{responseData.code !== 403 && responseData.code !== 200 && (
+								<>
+									<div
+										className="checkout-form-info"
+										style={{ backgroundColor: "red" }}
+									>
+										<FontAwesomeIcon icon={faInfoCircle} className="t-icon" />
+										<span>error</span>
+									</div>
+									<div className="mt-2">{responseData.json.Message}</div>
 								</>
 							)}
 						</div>

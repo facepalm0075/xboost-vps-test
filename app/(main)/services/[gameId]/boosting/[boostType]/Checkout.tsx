@@ -107,7 +107,8 @@ function Checkout({ gameN, boostType, dbData }: props) {
 	//applyer
 
 	const applyer = (item: number) => {
-		const op1app = tOptions(item);
+		const gain = gOptions(item);
+		const op1app = tOptions(gain);
 		const op2app = dOptions(op1app);
 		return op2app;
 	};
@@ -121,8 +122,27 @@ function Checkout({ gameN, boostType, dbData }: props) {
 		return item;
 	};
 
-	//applying toggle options
+	// calcing gain options (if exists)
+	const gOptions = (item: number) => {
+		const ops = eo2Result.op2;
+		let res = item;
+		if (ops) {
+			if (ops.length > 0) {
+				ops.map((item1) => {
+					if (item1.optionValue.includes("calcG")) {
+						let option = item1.optionValue.replace("calcG", "");
+						if (option.includes("%")) {
+							let num = Number(option.replace("%", ""));
+							res = (item * num) / 100;
+						}
+					}
+				});
+			}
+		}
+		return res;
+	};
 
+	// calcing toggle options
 	const tOptions = (item: number) => {
 		const ops = eoResult.op;
 		if (ops) {
@@ -146,7 +166,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 		return item;
 	};
 
-	//applying dropdown options
+	// calcing dropdown options
 
 	const dOptions = (item: number) => {
 		const ops = eo2Result.op2;
@@ -154,15 +174,22 @@ function Checkout({ gameN, boostType, dbData }: props) {
 			if (ops.length > 0) {
 				let sum = item;
 				ops.map((item1) => {
-					// for % options
-					if (item1.optionValue.includes("%")) {
-						let num = Number(item1.optionValue.replace("%", ""));
-						let operator = (item / 100) * num;
-						sum += operator;
-					} else if (item1.optionValue.includes("$")) {
-						let num = Number(item1.optionValue.replace("$", ""));
-						let operator = item + num;
-						sum = operator;
+					if (
+						!item1.optionValue.includes("calcA") &&
+						!item1.optionValue.includes("calcG")
+					) {
+						// for % options
+						if (item1.optionValue.includes("%")) {
+							let num = Number(item1.optionValue.replace("%", ""));
+							let operator = (item / 100) * num;
+							sum += operator;
+						}
+						// for $ options
+						else if (item1.optionValue.includes("$")) {
+							let num = Number(item1.optionValue.replace("$", ""));
+							let operator = item + num;
+							sum = operator;
+						}
 					}
 				});
 				return sum;
@@ -173,7 +200,31 @@ function Checkout({ gameN, boostType, dbData }: props) {
 
 	// calcing rank price
 	const rankPrice = () => {
-		const userData = result?.gameRanks!;
+		let amountCalced = result?.gameRanks!;
+		const ops = eo2Result.op2;
+		if (ops) {
+			if (ops.length > 0) {
+				ops.map((item1) => {
+					if (item1.optionValue.includes("calcA")) {
+						const amount = Number(item1.optionValue.replace("calcA", ""));
+						let calced = result.gameRanks?.currentRank;
+						if (calced) {
+							calced = {
+								rankImage: calced.rankImage,
+								rankName: calced.rankName,
+								rankNumber: calced.rankNumber + amount,
+								rankStar: calced.rankStar,
+							};
+						}
+						amountCalced = {
+							currentRank: calced,
+							desiredRank: result.gameRanks?.desiredRank,
+						};
+					}
+				});
+			}
+		}
+		const userData = amountCalced;
 		const ranksData = dbData.Data.ranksData;
 		let basePrice = 0;
 		if (userData && userData.currentRank && userData.desiredRank) {
@@ -246,7 +297,10 @@ function Checkout({ gameN, boostType, dbData }: props) {
 	const lvlBoostPrice = () => {
 		const userData = result?.gameLVLrange!;
 		const ranksData = dbData.Data.lvlRange;
-		let basePrice = (userData[1] - userData[0]) * ranksData.price;
+		let basePrice = 0;
+		if (userData && userData[0] && userData[1]) {
+			basePrice = (userData[1] - userData[0]) * ranksData.price;
+		}
 
 		return basePrice;
 	};
@@ -279,7 +333,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 									height={45}
 									className=""
 								/>
-								<span>{`${result?.gameRanks?.currentRank?.rankName} ${result?.gameRanks?.currentRank?.rankStar}`}</span>
+								<span>{`${result?.gameRanks?.currentRank?.rankName} ${result?.gameRanks?.currentRank?.rankStar !== "mt" ? result?.gameRanks?.currentRank?.rankStar : ""}`}</span>
 								<ArrowBlue />
 								<Image
 									src={`/ranksimages/${result?.gameRanks?.desiredRank?.rankImage}`}
@@ -288,7 +342,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 									height={45}
 									className=""
 								/>
-								<span>{`${result?.gameRanks?.desiredRank?.rankName} ${result?.gameRanks?.desiredRank?.rankStar}`}</span>
+								<span>{`${result?.gameRanks?.desiredRank?.rankName} ${result?.gameRanks?.desiredRank?.rankStar !== "mt" ? result?.gameRanks?.currentRank?.rankStar : ""}`}</span>
 							</>
 						) : (
 							""
@@ -302,7 +356,7 @@ function Checkout({ gameN, boostType, dbData }: props) {
 									height={45}
 									className=""
 								/>
-								<span>{`${result?.gameRankWins?.currentRank?.rankName} ${result?.gameRankWins?.currentRank?.rankStar}`}</span>
+								<span>{`${result?.gameRankWins?.currentRank?.rankName} ${result?.gameRankWins?.currentRank?.rankStar !== "mt" ? result?.gameRanks?.currentRank?.rankStar : ""}`}</span>
 								<ArrowBlue />
 								<span>
 									{`${result?.gameRankWins?.wins}`}

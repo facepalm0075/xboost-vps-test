@@ -1,11 +1,11 @@
 import prisma from "@/src/lib/db";
-import { addOrderRequestType, rankBoostOrderDetailsType } from "../route";
+import { addOrderRequestType, rankBoostOrderDetailsType, rankWinsOrderDetailsType } from "../route";
 import { Prisma } from "@prisma/client";
 import { dbRes } from "@/app/(main)/services/[gameId]/boosting/[boostType]/page";
 import { dropDownOptionValidator } from "./DropDownOptionValidator";
 import { toggleOptionsValidator } from "./ToogleOptionsValidator";
 
-export const rankBoostDetailsContentValidation = (
+export const rankWinsDetailsContentValidation = (
 	requestData: addOrderRequestType,
 	dbitems: any
 ) => {
@@ -13,7 +13,7 @@ export const rankBoostDetailsContentValidation = (
 		// extracting request parts
 		const gameName = requestData.gameName;
 		const boostType = requestData.boostType;
-		const boostDetails = requestData.boostDetails as unknown as rankBoostOrderDetailsType;
+		const boostDetails = requestData.boostDetails as unknown as rankWinsOrderDetailsType;
 
 		// changing db reesponse type
 		const res: dbRes = dbitems! as unknown as dbRes;
@@ -24,17 +24,12 @@ export const rankBoostDetailsContentValidation = (
 			res.Data.ranksData[res.Data.ranksData.length - 1].rankNums[
 				res.Data.ranksData[res.Data.ranksData.length - 1].rankNums.length - 1
 			].mmr;
-		if (boostDetails.currentRank < CurrentRankMin || boostDetails.currentRank >= CurrentRankMax)
+		if (boostDetails.currentRank < CurrentRankMin || boostDetails.currentRank > CurrentRankMax)
 			return "Invalid current rank";
 
-		// validating desired rank
-		const DesiredRankMin = boostDetails.currentRank;
-		const DesiredRankMax =
-			res.Data.ranksData[res.Data.ranksData.length - 1].rankNums[
-				res.Data.ranksData[res.Data.ranksData.length - 1].rankNums.length - 1
-			].mmr;
-		if (boostDetails.desiredRank <= DesiredRankMin || boostDetails.desiredRank > DesiredRankMax)
-			return "Invalid desired rank";
+		// validating rank wins number
+		if (boostDetails.rankWins < 1 || boostDetails.rankWins > res.Data.maxWins)
+			return "Invalid max wins";
 
 		// validating drop down options name + content and numbers
 		const dropDownOptionValidatorResult = dropDownOptionValidator(

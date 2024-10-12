@@ -1,5 +1,11 @@
 import { NextRequest } from "next/server";
-import { authCheck, baseValidation, rankBoostValidation } from "./modules/SmallValidations";
+import {
+	authCheck,
+	baseValidation,
+	levelBoostValidation,
+	rankBoostValidation,
+	rankWinsValidation,
+} from "./modules/SmallValidations";
 import { rankBoostDetailsContentValidation } from "./modules/RankBoostDetailsContentValidation";
 import { addOrderToDatabase } from "./modules/AddOrderToDB";
 import { duplicateCheck } from "./modules/DuplicateCheck";
@@ -7,6 +13,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/_options";
 import { getBoostingOrder } from "./modules/GetBoostingOrder";
 import calcPrice from "./modules/CalcPrice";
+import { rankWinsDetailsContentValidation } from "./modules/RankWinsDetailsContentValidation";
+import { levelBoostDetailsContentValidation } from "./modules/LevelBoostDetailContentValidation";
+
 
 export type addOrderRequestType = {
 	gameName: string;
@@ -18,6 +27,20 @@ export type addOrderRequestType = {
 export type rankBoostOrderDetailsType = {
 	currentRank: number;
 	desiredRank: number;
+	dropDownOptions: dropDownOptionsOrderDetailsType[];
+	toggleOptions: toggleOptionsOrderDetailsType[];
+};
+
+export type rankWinsOrderDetailsType = {
+	currentRank: number;
+	rankWins: number;
+	dropDownOptions: dropDownOptionsOrderDetailsType[];
+	toggleOptions: toggleOptionsOrderDetailsType[];
+};
+
+export type levelBoostOrderDetailsType = {
+	currentLevel: number;
+	desiredLevel: number;
 	dropDownOptions: dropDownOptionsOrderDetailsType[];
 	toggleOptions: toggleOptionsOrderDetailsType[];
 };
@@ -41,38 +64,68 @@ export async function POST(request: NextRequest) {
 
 		// validating (add order) request data base form
 		if (!baseValidation(requestData)) return sendResponce("Bad input", 400);
+	
 
 		//---------------------------------------------------------------------
 
-		// handling all boost types
+		// getting boosting order details from db
+		const dbitems = await getBoostingOrder(requestData.gameName, requestData.boostType);
+		if (!dbitems) return sendResponce("order not found; Invalid game name or order type", 400);
+
+		// validating all boost types details content with db
 		switch (requestData.boostType) {
 			case "rank boost":
-				// getting boosting order details from db
-				const dbitems = await getBoostingOrder(requestData.gameName, requestData.boostType);
-
-				// validating (add order) boostDetails data form
+				// validating data form
 				if (!rankBoostValidation(requestData.boostDetails))
 					return sendResponce("Invalid data", 400);
-				const contentValidation = rankBoostDetailsContentValidation(requestData, dbitems);
-				if (contentValidation !== "validated") return sendResponce(contentValidation, 400);
 
-				// checking duplicate order
-				// const duplicateValidation = await duplicateCheck(requestData, session!);
-				// if (duplicateValidation.title !== "np")
-				// 	return sendResponce(duplicateValidation.body, duplicateValidation.code);
+				// validating content
+				const contentValidation1 = rankBoostDetailsContentValidation(requestData, dbitems);
+				if (contentValidation1 !== "validated")
+					return sendResponce(contentValidation1, 400);
+				break;
+			case "rank wins":
+				// validating data form
+				if (!rankWinsValidation(requestData.boostDetails))
+					return sendResponce("Invalid data", 400);
 
-				// calcing order price
-				const price = calcPrice(requestData, requestData.boostType, dbitems);
-				if (price === "error") return sendResponce("boost type not found", 400);
+				// validating content
+				const contentValidation2 = rankWinsDetailsContentValidation(requestData, dbitems);
+				if (contentValidation2 !== "validated")
+					return sendResponce(contentValidation2, 400);
+				break;
+			case "level boost":
+				// validating data form
+				if (!levelBoostValidation(requestData.boostDetails))
+					return sendResponce("Invalid data", 400);
 
-				// add order
-				const addResult = await addOrderToDatabase(requestData, session!, Number(price));
-				return sendResponceWithId(addResult.body, addResult.id, addResult.code);
-
+				// validating content
+				const contentValidation3 = levelBoostDetailsContentValidation(requestData, dbitems);
+				if (contentValidation3 !== "validated")
+					return sendResponce(contentValidation3, 400);
+				break;
 			default:
 				// if boost type not found
 				return sendResponce("boost type not found", 400);
 		}
+
+		// checking duplicate order
+		// const duplicateValidation = await duplicateCheck(requestData, session!);
+		// if (duplicateValidation.title !== "np")
+		// 	return sendResponce(duplicateValidation.body, duplicateValidation.code);
+
+		// calcing order price
+		const price = calcPrice(requestData, requestData.boostType, dbitems);
+		if (price === "error") return sendResponce("boost type not found", 400);
+
+		// add order
+		const addResult = await addOrderToDatabase(
+			requestData,
+			session!,
+			Number(price),
+			dbitems.id
+		);
+		return sendResponceWithId(addResult.body, addResult.id, addResult.code);
 	} catch (err) {
 		// this try catch used for catch error when user not sending json data in request body
 		console.log(err);

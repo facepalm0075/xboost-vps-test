@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginLoading } from "@/app/components/Loadings";
+import UserAccLoading from "@/app/components/UserAccLoading";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
@@ -8,7 +8,7 @@ import React from "react";
 function UserInfo() {
 	const { data: session, status } = useSession();
 	if (status === "loading") {
-		return <LoginLoading />;
+		return <UserAccLoading />;
 	}
 	return (
 		<>

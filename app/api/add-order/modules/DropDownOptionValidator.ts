@@ -1,4 +1,4 @@
-import { dropDownOptionsOrderDetailsType, rankBoostOrderDetailsType } from "../route";
+import { dropDownOptionsOrderDetailsType } from "../route";
 import { options2Type } from "@/app/components/types/Types";
 
 export const dropDownOptionValidator = (

@@ -7,7 +7,8 @@ import { Prisma } from "@prisma/client";
 export const addOrderToDatabase = async (
 	requestData: addOrderRequestType,
 	session: Session,
-	price: number
+	price: number,
+	boostingOrderId: number
 ) => {
 	try {
 		// extracting request parts
@@ -15,7 +16,6 @@ export const addOrderToDatabase = async (
 		const boostType = requestData.boostType;
 		const boostDetails = requestData.boostDetails;
 		const credential = requestData.credential;
-
 		//if (!session) return { title: "mailError", body: "cant find your email please re-login or contanct support", code: 500 };
 		const dbRes = await prisma.userOrders.create({
 			data: {
@@ -25,6 +25,7 @@ export const addOrderToDatabase = async (
 				boostDetails: boostDetails,
 				userEmail: session?.user?.email,
 				accCrendential: credential,
+				boostingOrdersId: boostingOrderId,
 			},
 		});
 		return {

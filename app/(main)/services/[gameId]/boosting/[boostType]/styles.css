@@ -497,6 +497,7 @@
 .drop-down-items {
 	opacity: 0;
 	position: absolute;
+	z-index: 1;
 	background-color: #101010;
 	border: 1px solid #3f3f3f;
 	border-top: none;

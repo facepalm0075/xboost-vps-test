@@ -100,8 +100,8 @@ model orders {
 }
 
 model boostingOrders {
-  id            Int     @id @default(autoincrement())
-  orderedIn     orders? @relation(fields: [orderedInId], references: [id])
+  id            Int          @id @default(autoincrement())
+  orderedIn     orders?      @relation(fields: [orderedInId], references: [id])
   orderedInId   String?
   img           String
   name          String
@@ -110,18 +110,21 @@ model boostingOrders {
   Data          Json
   extraOptions  Json
   extraOptions2 Json
-  isEnabled     Boolean @default(false)
+  isEnabled     Boolean      @default(false)
   discount      Int?
+  userOrders    userOrders[]
 }
 
 model userOrders {
-  id             String  @id @default(uuid())
-  gameName       String
-  boostType      String
-  price          Float
-  boostDetails   Json
-  User           User?   @relation(fields: [userEmail], references: [email])
-  userEmail      String?
-  status         String  @default("not paid")
-  accCrendential String
+  id               String          @id @default(uuid())
+  gameName         String
+  boostType        String
+  price            Float
+  boostDetails     Json
+  User             User?           @relation(fields: [userEmail], references: [email])
+  userEmail        String?
+  status           String          @default("not paid")
+  accCrendential   String
+  boostingOrder    boostingOrders? @relation(fields: [boostingOrdersId], references: [id])
+  boostingOrdersId Int?
 }

@@ -38,6 +38,24 @@ async function page({ params }: props) {
 					{dbitems.status}
 				</span>
 			</div>
+
+			<div className="flex">
+				<div className="w-1/2 p-5">
+					<div className="peyment-method-container">
+						<h2>Select payment method</h2>
+						<div className="peyment-method-item">paypal</div>
+						<div className="peyment-method-item">stripe</div>
+						<div className="peyment-method-item">crypto.com</div>
+						<div className="peyment-method-item">etc...</div>
+						<div className="flex justify-center">
+						<div className="make-payment-btn">make payment({dbitems.price})</div>
+						</div>
+					</div>
+				</div>
+				<div className="w-1/2 p-5">
+				<div className="checkout-review"></div>
+				</div>
+			</div>
 		</>
 	);
 }
