@@ -1,6 +1,5 @@
 import { Box, Slider, SliderThumb } from "@mui/material";
 import { BoostingPage } from "../svgs";
-import { ExtraOptionsState } from "@/app/redux/Features/extraOptions/gameDetailsSlice";
 
 type props = {
   maxNum:number
