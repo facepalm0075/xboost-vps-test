@@ -52,26 +52,32 @@ function Checkout({ gameN, boostType, dbData }: props) {
 	const OptionNameer = OptionMainNameer.extraOptiontState;
 	let data: slce = { gameName: "" };
 
+	const mainNameer1 = useAppSelector((state) => state.rankBoostSlice);
+		const nameer1 = mainNameer1.rankBoostState;
+
+		const mainNameer2 = useAppSelector((state) => state.rankWinsSlice);
+		const nameer2 = mainNameer2.rankWinsState;
+
+		const mainNameer3 = useAppSelector((state) => state.lvlBoost);
+		const nameer3 = mainNameer3.lvlBoostState;
+
 	if (boostType === "rank boost") {
-		const mainNameer = useAppSelector((state) => state.rankBoostSlice);
-		const nameer = mainNameer.rankBoostState;
-		nameer.forEach((item) => {
+		
+		nameer1.forEach((item) => {
 			if (item.gameName === gameN) {
 				data = item;
 			}
 		});
 	} else if (boostType === "rank wins") {
-		const mainNameer = useAppSelector((state) => state.rankWinsSlice);
-		const nameer = mainNameer.rankWinsState;
-		nameer.forEach((item) => {
+		
+		nameer2.forEach((item) => {
 			if (item.gameName === gameN) {
 				data = item;
 			}
 		});
 	} else if (boostType === "level boost") {
-		const mainNameer = useAppSelector((state) => state.lvlBoost);
-		const nameer = mainNameer.lvlBoostState;
-		nameer.forEach((item) => {
+		
+		nameer3.forEach((item) => {
 			if (item.gameName === gameN) {
 				data = item;
 			}
