@@ -207,12 +207,13 @@ svg {
 }
 
 .oco-status-span {
-	padding: 3px 0px;
+	padding: 1px 0px;
+	font-size: 13px;
 	display: block;
 	width: 92px;
 	text-align: center;
 	border: 1px solid #5b5b5b;
-	border-radius: 5px;
+	border-radius: 9px;
 	color: #000000;
 	font-weight: 600;
 	float: right;
@@ -269,8 +270,7 @@ svg {
 	margin-top: 80px;
 }
 
-
-.make-payment-btn{
+.make-payment-btn {
 	padding: 10px 30px;
 	border-radius: 10px;
 	border: 1px solid white;

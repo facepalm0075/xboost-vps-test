@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { ToolTipEO } from "@/app/components/CostumToolTip";
 import CopyOrderId from "@/app/components/CopyOrderId";
+import MakePaymentBtn from "@/app/(user profile)/components/MakePaymentBtn";
 
 type props = {
 	params: { orderId: string };
@@ -32,30 +33,37 @@ async function page({ params }: props) {
 				<CopyOrderId />
 
 				<span
-					style={{ backgroundColor: dbitems.status && "lightyellow" }}
+					style={{
+						backgroundColor:
+							dbitems.status === "not paid"
+								? "lightyellow"
+								: dbitems.status === "paid"
+									? "lightgreen"
+									: "",
+					}}
 					className="oic-span2"
 				>
 					{dbitems.status}
 				</span>
 			</div>
 
-			<div className="flex">
-				<div className="w-1/2 p-5">
-					<div className="peyment-method-container">
-						<h2>Select payment method</h2>
-						<div className="peyment-method-item">paypal</div>
-						<div className="peyment-method-item">stripe</div>
-						<div className="peyment-method-item">crypto.com</div>
-						<div className="peyment-method-item">etc...</div>
-						<div className="flex justify-center">
-						<div className="make-payment-btn">make payment({dbitems.price})</div>
+			{dbitems.status === "not paid" && (
+				<div className="flex">
+					<div className="w-1/2 p-5">
+						<div className="peyment-method-container">
+							<h2>Select payment method</h2>
+							<MakePaymentBtn
+								price={dbitems.price}
+								baseUrl={process.env.BASE_URL!}
+								orderId={dbitems.id}
+							/>
 						</div>
 					</div>
+					<div className="w-1/2 p-5">
+						<div className="checkout-review"></div>
+					</div>
 				</div>
-				<div className="w-1/2 p-5">
-				<div className="checkout-review"></div>
-				</div>
-			</div>
+			)}
 		</>
 	);
 }

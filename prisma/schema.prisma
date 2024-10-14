@@ -9,17 +9,18 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  walletBalance Float           @default(0.00)
-  orders        userOrders[]
+  id              String                            @id @default(cuid())
+  name            String?
+  email           String                            @unique
+  emailVerified   DateTime?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  walletBalance   Int                               @default(0)
+  orders          userOrders[]
+  gatewayPayments buyerPaymentGatewayTransactions[]
   // Optional for WebAuthn support
-  Authenticator Authenticator[]
+  Authenticator   Authenticator[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -116,15 +117,43 @@ model boostingOrders {
 }
 
 model userOrders {
-  id               String          @id @default(uuid())
-  gameName         String
-  boostType        String
-  price            Float
-  boostDetails     Json
-  User             User?           @relation(fields: [userEmail], references: [email])
-  userEmail        String?
-  status           String          @default("not paid")
-  accCrendential   String
-  boostingOrder    boostingOrders? @relation(fields: [boostingOrdersId], references: [id])
+  id             String  @id @default(uuid())
+  gameName       String
+  boostType      String
+  price          Float
+  boostDetails   Json
+  User           User?   @relation(fields: [userEmail], references: [email])
+  userEmail      String?
+  status         String  @default("not paid")
+  accCrendential String
+
+  boostingOrder    boostingOrders?                   @relation(fields: [boostingOrdersId], references: [id])
   boostingOrdersId Int?
+  transactions     buyerPaymentGatewayTransactions[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model buyerPaymentGatewayTransactions {
+  id           String      @id @default(uuid())
+  User         User?       @relation(fields: [userEmail], references: [email])
+  userEmail    String?
+  userOrders   userOrders? @relation(fields: [userOrdersId], references: [id])
+  userOrdersId String?
+
+  paymentId       String
+  paymentStatus   String
+  paymentCurrency String
+  paymentAmount   Float
+
+  payerName  String
+  payerEmail String
+  payerId    String
+
+  gatwayFee Float
+
+  paymentDetails Json
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

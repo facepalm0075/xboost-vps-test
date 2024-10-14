@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/app/(main)/NavBar";
 import Sidebar from "./components/Sidebar";
 import "./styles.css";
+import Cashback from "./components/Cashback";
 
 export const metadata: Metadata = {
 	title: "xBoost",
@@ -36,7 +37,9 @@ export default function RootLayout({
 						<Sidebar />
 					</div>
 					<div className="w-full px-5 pt-5">{children}</div>
-					<div className="w-80 h-40 border-neutral-700 border-2 rounded-2xl mt-7"></div>
+					<div className="w-80 p-5 h-fit border-neutral-700 border-2 rounded-2xl mt-7">
+						<Cashback/>
+					</div>
 				</div>
 			</body>
 		</html>

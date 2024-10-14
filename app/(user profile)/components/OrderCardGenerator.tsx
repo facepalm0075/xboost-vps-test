@@ -114,7 +114,8 @@ function OrderCardGenerator({ dbitems }: props) {
 								<span
 									style={{
 										backgroundColor:
-											item.status === "not paid" ? "lightyellow" : "",
+											item.status === "not paid" ? "lightyellow" : item.status === "paid" ? "lightgreen" : "",
+											
 									}}
 									className="oco-status-span"
 								>

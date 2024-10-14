@@ -36,7 +36,7 @@ async function page() {
 			id: true,
 		},
 	});
-	if (!dbitems) return <div>not found!</div>;
+	if (dbitems.length === 0) return <div>not found!</div>;
 	return (
 		<div>
 			<Suspense
