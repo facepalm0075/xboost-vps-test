@@ -277,3 +277,139 @@ svg {
 	cursor: pointer;
 	display: inline-block;
 }
+
+.cash-back-container {
+	background-color: #0c0c0cb6;
+	border-radius: 22px;
+	border: 1px solid #292929;
+	padding: 6px 15px;
+	position: relative;
+	padding-bottom: 30px;
+	min-width: 215px;
+}
+
+.cb-container-h2 {
+	font-size: 18px !important;
+	margin-bottom: 10px;
+	display: block;
+	border-bottom: 1px solid #3d3d3d;
+	padding: 4px 0px;
+}
+
+.cb-container-span {
+	font-size: 13px;
+}
+
+.cash-back-details-btn {
+	display: inline-block;
+	color: var(--theme-main-color);
+	font-size: 16px;
+	font-weight: 600;
+	border-radius: 7px;
+	cursor: pointer;
+	position: absolute;
+	bottom: -15px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 1px 15px;
+	transition: all 0.3s;
+	background-color: #0b3136;
+}
+
+.cash-back-details-btn:hover {
+	color: black;
+	background-color: var(--theme-main-color);
+}
+
+.cb-container-d span {
+	font-size: 13px;
+	font-weight: 700;
+	color: white;
+}
+
+.cb-container-d strong {
+	color: var(--theme-main-color);
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.payment-status-circles-container {
+	border-radius: 300px;
+	background-color: #57f2fd36;
+	width: 200px;
+	height: 200px;
+	position: relative;
+	margin: auto;
+}
+.payment-status-circles-base {
+	width: 80%;
+	height: 80%;
+	position: relative;
+	border-radius: 500px;
+	background-color: #57f2fd36;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.gateway-return-title {
+	text-align: center;
+	font-size: 36px;
+	color: white;
+	margin-bottom: 25px;
+	font-weight: 600;
+}
+
+.payment-status-circles-last {
+	width: 70%;
+	height: 70%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #5acad1;
+}
+
+.payment-status-circles-last svg {
+	color: white;
+	font-size: 44px;
+}
+
+.gateway-return-status-title {
+	text-align: center;
+	font-size: 26px;
+	margin: 15px;
+	color: #5acad1;
+}
+
+.gateway-return-status-decrip {
+	text-align: center;
+	font-size: 16px;
+	margin-bottom: 19px;
+	color: #a4f7fd;
+}
+
+.gateway-return-price {
+	width: 300px;
+	margin: auto;
+	padding: 10px 20px;
+	border-radius: 50px;
+	background-color: #272727;
+}
+
+.gateway-return-price strong {
+}
+
+.gateway-return-price span {
+	float: right;
+}
+
+.gateway-return-bto {
+	width: 160px;
+	text-align: center;
+	padding: 5px 10px;
+	border-radius: 10px;
+	margin: auto;
+	border: 1px solid #7f7f7f;
+	margin-top: 30px;
+	color: white;
+}

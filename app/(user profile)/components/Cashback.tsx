@@ -12,11 +12,23 @@ async function Cashback() {
 		select: {
 			walletBalance: true,
 		},
-	});
+	});	
+	function commafy(num: number | undefined) {
+		if (num) {
+			return Number(num).toLocaleString(); 
+		}
+	}
 	return (
 		<>
-			<h2>3% Cashback</h2>
-			<span>your xboost coin balance : {dbitem?.walletBalance}</span>
+			<div className="cash-back-container">
+				<h2 className="cb-container-h2">xBoost Wallet</h2>
+				<div className="cb-container-d">
+					<strong>{commafy(dbitem?.walletBalance)}</strong>
+					<span> Coins</span>
+				</div>
+				<span className="cb-container-span">3% cashback for every purchase</span>
+				<div className="cash-back-details-btn">details</div>
+			</div>
 		</>
 	);
 }

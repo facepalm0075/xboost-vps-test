@@ -4,6 +4,8 @@ import { redirect, RedirectType } from "next/navigation";
 import { savePaypalTransaction } from "@/app/(user profile)/actions/transaction";
 import { orderPaidProcess } from "@/app/(user profile)/actions/orderPaidProcess";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 type props = {
 	params: { orderId: string };
@@ -22,23 +24,37 @@ async function page({ params, searchParams }: props) {
 							return (
 								<div>
 									order payment completed but process faild. please contact
-									support
+									support or check your order status
 								</div>
 							);
 						return (
 							<>
-								<div>
-									order id : {dbitem.id}
-									<br />
-									order price : {dbitem.price}
-									<br />
-									order status : {dbitem.status}
-									<br />
-									order game account : {dbitem.accCrendential}
-									<br />
+								<div className="gateway-return-title">
+									<h1>Payment Confirmation</h1>
 								</div>
+								<div className="payment-status-circles-container">
+									<div className="payment-status-circles-base">
+										<div className="payment-status-circles-base">
+											<div className="payment-status-circles-base payment-status-circles-last">
+												<FontAwesomeIcon icon={faCheck} />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div className="gateway-return-status-title">
+									Payment Successful
+								</div>
+								<div className="gateway-return-status-decrip">
+									Order paid by <strong>paypal</strong>.<br />
+									Thank you for your trust.
+								</div>
+								<div className="gateway-return-price">
+									<strong>Total Price:</strong>
+									<span>$385.12</span>
+								</div>
+
 								<a href={"/profile/orders/" + params.orderId} type="replace">
-									Back To Order
+									<div className="gateway-return-bto">Back to order</div>
 								</a>
 							</>
 						);
@@ -47,10 +63,12 @@ async function page({ params, searchParams }: props) {
 					}
 				} catch (error) {
 					return (
-						<div>
-							peyment capture faild : <br />
-							no order to capture
-						</div>
+						<>
+							<div>
+								peyment capture faild : <br />
+								no order to capture
+							</div>
+						</>
 					);
 				}
 			}

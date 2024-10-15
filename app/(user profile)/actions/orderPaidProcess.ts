@@ -8,28 +8,24 @@ export const orderPaidProcess = async (orderId: string) => {
 		data: {
 			status: "paid",
 		},
-		include:{
-			User:{
-				select:{
-					walletBalance:true
-				}
-			}
-		}
+		include: {
+			User: {
+				select: {
+					walletBalance: true,
+				},
+			},
+		},
 	});
 
-	try {
-		const price = Math.floor((dbitem.price * 3) / 100 / 0.01);
-		const dbitem2 = await prisma.user.update({
-			where: {
-				email: dbitem.userEmail!,
-			},
-			data: {
-				walletBalance: dbitem.User!.walletBalance! + price,
-			},
-		});
-	} catch (error) {
-		console.log(error)
-	}
+	const price = Math.floor((dbitem.price * 3) / 100 / 0.01);
+	const dbitem2 = await prisma.user.update({
+		where: {
+			email: dbitem.userEmail!,
+		},
+		data: {
+			walletBalance: dbitem.User!.walletBalance! + price,
+		},
+	});
 
 	return dbitem;
 };

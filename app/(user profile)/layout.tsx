@@ -36,9 +36,9 @@ export default function RootLayout({
 					<div className="w-80">
 						<Sidebar />
 					</div>
-					<div className="w-full px-5 pt-5">{children}</div>
-					<div className="w-80 p-5 h-fit border-neutral-700 border-2 rounded-2xl mt-7">
-						<Cashback/>
+					<div className="w-full px-5 pt-5 relative">{children}</div>
+					<div className="w-80 h-fit mt-7">
+						<Cashback />
 					</div>
 				</div>
 			</body>
