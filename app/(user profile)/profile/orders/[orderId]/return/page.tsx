@@ -50,7 +50,7 @@ async function page({ params, searchParams }: props) {
 								</div>
 								<div className="gateway-return-price">
 									<strong>Total Price:</strong>
-									<span>$385.12</span>
+									<span>${dbitem.price}</span>
 								</div>
 
 								<a href={"/profile/orders/" + params.orderId} type="replace">
