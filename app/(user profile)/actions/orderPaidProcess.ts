@@ -1,4 +1,5 @@
 import prisma from "@/src/lib/db";
+import { addUserNotification } from "./addNotif";
 
 export const orderPaidProcess = async (orderId: string) => {
 	const dbitem = await prisma.userOrders.update({
@@ -16,6 +17,12 @@ export const orderPaidProcess = async (orderId: string) => {
 			},
 		},
 	});
+	addUserNotification({
+		userEmail: dbitem.userEmail!,
+		subject: "Order Paid",
+		description: "Your order payment completed.",
+		link: "/profile/orders/" + orderId,
+	});
 
 	const price = Math.floor((dbitem.price * 3) / 100 / 0.01);
 	const dbitem2 = await prisma.user.update({
@@ -25,6 +32,12 @@ export const orderPaidProcess = async (orderId: string) => {
 		data: {
 			walletBalance: dbitem.User!.walletBalance! + price,
 		},
+	});
+	addUserNotification({
+		userEmail: dbitem.userEmail!,
+		subject: "Cashback",
+		description: `${price} coins added to your wallet`,
+		link: null,
 	});
 
 	return dbitem;

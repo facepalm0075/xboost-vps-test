@@ -14,6 +14,7 @@ import { addOrderJsonForm } from "./AddOrderJsomForm";
 import { AddOrderSubmitLoading } from "./Loadings";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { getNotifications } from "./clientNotifs/getNotifs";
 
 type props = {
 	gameName: string;
@@ -33,7 +34,7 @@ function CheckoutForm({ gameName, boostType }: props) {
 	// rank boost
 	const mainNameer = useAppSelector((state) => state.rankBoostSlice);
 	const nameer = mainNameer.rankBoostState;
-	nameer.forEach((item) => {
+	nameer?.forEach((item) => {
 		if (item.gameName === gameName) {
 			data.gameRanks = item.gameRanks;
 		}

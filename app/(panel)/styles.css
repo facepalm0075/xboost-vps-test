@@ -1,0 +1,12 @@
+svg {
+	display: var(--fa-display, inline-block);
+	height: 1em;
+	overflow: visible;
+	vertical-align: -0.125em;
+}
+
+.panel-layout-container {
+	width: 96%;
+	max-width: 1600px;
+	margin: auto;
+}

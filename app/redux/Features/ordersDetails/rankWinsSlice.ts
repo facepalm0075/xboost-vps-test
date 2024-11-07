@@ -3,6 +3,7 @@
 import { rnk, rnkw } from "@/app/components/types/Types";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import presistState from "../../components/presistState";
 
 export type rankWinsStateType = {
 	rankWinsState: {
@@ -11,8 +12,10 @@ export type rankWinsStateType = {
 	}[];
 };
 
+const [getLocalState, localStateSaver] = presistState("extraOptiontState");
+
 const initialState = {
-	rankWinsState: [],
+	rankWinsState: getLocalState([])!,
 } satisfies rankWinsStateType as rankWinsStateType;
 
 export const rankWinsSlice = createSlice({
@@ -20,6 +23,7 @@ export const rankWinsSlice = createSlice({
 	initialState,
 	reducers: {
 		gameDefiendCheck: (state, action: PayloadAction<string>) => {
+			localStateSaver(state.rankWinsState);
 			let isIn = false;
 			state.rankWinsState.forEach((item) => {
 				if (item.gameName === action.payload) {
@@ -31,34 +35,28 @@ export const rankWinsSlice = createSlice({
 					...state.rankWinsState,
 					{
 						gameName: action.payload,
-						gameRankWins:{currentRank:undefined,wins:undefined}
+						gameRankWins: { currentRank: undefined, wins: undefined },
 					},
 				];
 			}
-		},		
-		rankWinsChanged: (
-      state,
-      action: PayloadAction<{ game: string; rankNwin: rnkw }>
-    ) => {
-      rankWinsSlice.caseReducers.gameDefiendCheck(state, {
-        payload: action.payload.game,
-        type: action.type,
-      });
-      state.rankWinsState = state.rankWinsState.map((item) =>
-        item.gameName === action.payload.game
-          ? {
-              ...item,
-              gameRankWins: action.payload.rankNwin,
-            }
-          : item
-      );
-    },
+		},
+		rankWinsChanged: (state, action: PayloadAction<{ game: string; rankNwin: rnkw }>) => {
+			rankWinsSlice.caseReducers.gameDefiendCheck(state, {
+				payload: action.payload.game,
+				type: action.type,
+			});
+			state.rankWinsState = state.rankWinsState.map((item) =>
+				item.gameName === action.payload.game
+					? {
+							...item,
+							gameRankWins: action.payload.rankNwin,
+						}
+					: item
+			);
+		},
 	},
 });
 
-export const {
-	gameDefiendCheck,
-	rankWinsChanged,
-} = rankWinsSlice.actions;
+export const { gameDefiendCheck, rankWinsChanged } = rankWinsSlice.actions;
 
 export default rankWinsSlice.reducer;

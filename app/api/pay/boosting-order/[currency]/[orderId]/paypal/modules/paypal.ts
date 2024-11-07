@@ -17,12 +17,9 @@ const generateAccessToken = async () => {
 export const createOrder = async (order: any, paramCrrency: string) => {
 	const token = await generateAccessToken();
 
-	const currency = paramCrrency.toUpperCase();
+	const currency = "usd".toUpperCase();
 
 	let price = order.price;
-	if (currency === "EUR") {
-		price = (order.price * 0.88657).toFixed(2);
-	}
 	const name = order.gameName + " " + order.boostType;
 
 	const response = await axios({

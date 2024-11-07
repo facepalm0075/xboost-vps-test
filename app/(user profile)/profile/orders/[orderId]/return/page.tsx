@@ -17,7 +17,11 @@ async function page({ params, searchParams }: props) {
 			if (searchParams.token) {
 				try {
 					const result = await capturePaymentPaypal(searchParams.token);
-					await savePaypalTransaction(result, params.orderId);
+					await savePaypalTransaction(
+						result,
+						params.orderId,
+						searchParams.paymentGateway
+					);
 					if (result.status === "COMPLETED") {
 						const dbitem = await orderPaidProcess(params.orderId);
 						if (!dbitem)

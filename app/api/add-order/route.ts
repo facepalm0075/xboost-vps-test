@@ -15,7 +15,7 @@ import { getBoostingOrder } from "./modules/GetBoostingOrder";
 import calcPrice from "./modules/CalcPrice";
 import { rankWinsDetailsContentValidation } from "./modules/RankWinsDetailsContentValidation";
 import { levelBoostDetailsContentValidation } from "./modules/LevelBoostDetailContentValidation";
-
+import { addUserNotification } from "@/app/(user profile)/actions/addNotif";
 
 export type addOrderRequestType = {
 	gameName: string;
@@ -64,7 +64,6 @@ export async function POST(request: NextRequest) {
 
 		// validating (add order) request data base form
 		if (!baseValidation(requestData)) return sendResponce("Bad input", 400);
-	
 
 		//---------------------------------------------------------------------
 
@@ -125,6 +124,12 @@ export async function POST(request: NextRequest) {
 			Number(price),
 			dbitems.id
 		);
+		addUserNotification({
+			userEmail: session!.user!.email!,
+			subject: "Order Added",
+			description: "New order added in to your order list.",
+			link: "/profile/orders/" + addResult.id,
+		});
 		return sendResponceWithId(addResult.body, addResult.id, addResult.code);
 	} catch (err) {
 		// this try catch used for catch error when user not sending json data in request body

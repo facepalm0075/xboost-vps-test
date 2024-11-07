@@ -5,39 +5,11 @@ import rankBoostSlice from "./Features/ordersDetails/rankBoostSlice";
 import extraOptionSlice from "./Features/ordersDetails/extraOptionSlice";
 import rankWinsSlice from "./Features/ordersDetails/rankWinsSlice";
 import lvlBoost from "./Features/ordersDetails/lvlBoost";
+import notificationSlice from "./Features/notifications/notificationSlice";
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { WebStorage } from "redux-persist/lib/types";
-
-export function createPersistStorage(): WebStorage {
-	const isServer = typeof window === "undefined";
-
-	// Returns noop (dummy) storage.
-	if (isServer) {
-		return {
-			getItem() {
-				return Promise.resolve(null);
-			},
-			setItem() {
-				return Promise.resolve();
-			},
-			removeItem() {
-				return Promise.resolve();
-			},
-		};
-	}
-
-	return createWebStorage("local");
-}
-
-const storage = createPersistStorage();
-
-const persistConfig = {
-	key: "root",
-	version: 1,
-	storage,
-};
 
 const reducer = combineReducers({
 	gameDetails,
@@ -45,13 +17,12 @@ const reducer = combineReducers({
 	extraOptionSlice,
 	rankWinsSlice,
 	lvlBoost,
+	notificationSlice,
 });
-
-const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const makeStore = () => {
 	return configureStore({
-		reducer: persistedReducer,
+		reducer: reducer,
 		middleware: (getDefaultMiddleware) =>
 			getDefaultMiddleware({
 				actionCreatorCheck: false,
@@ -59,8 +30,10 @@ export const makeStore = () => {
 				serializableCheck: false,
 				immutableCheck: false,
 			}),
+		devTools: false,
 	});
 };
+export const store = makeStore();
 export type AppStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];

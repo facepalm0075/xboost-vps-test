@@ -3,6 +3,7 @@
 import { rnk } from "@/app/components/types/Types";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import presistState from "../../components/presistState";
 
 export type rankBoostStateType = {
 	rankBoostState: {
@@ -11,8 +12,10 @@ export type rankBoostStateType = {
 	}[];
 };
 
+const [getLocalState, localStateSaver] = presistState("rankBoostState");
+
 const initialState = {
-	rankBoostState: [],
+	rankBoostState: getLocalState([])!,
 } satisfies rankBoostStateType as rankBoostStateType;
 
 export const rankBoostSlice = createSlice({
@@ -20,6 +23,7 @@ export const rankBoostSlice = createSlice({
 	initialState,
 	reducers: {
 		gameDefiendCheck: (state, action: PayloadAction<string>) => {
+			localStateSaver(state.rankBoostState);
 			let isIn = false;
 			state.rankBoostState.forEach((item) => {
 				if (item.gameName === action.payload) {
@@ -35,7 +39,7 @@ export const rankBoostSlice = createSlice({
 					},
 				];
 			}
-		},		
+		},
 		rankChanged: (state, action: PayloadAction<{ game: string; ranks: rnk }>) => {
 			rankBoostSlice.caseReducers.gameDefiendCheck(state, {
 				payload: action.payload.game,
@@ -53,9 +57,6 @@ export const rankBoostSlice = createSlice({
 	},
 });
 
-export const {
-	gameDefiendCheck,
-	rankChanged,
-} = rankBoostSlice.actions;
+export const { gameDefiendCheck, rankChanged } = rankBoostSlice.actions;
 
 export default rankBoostSlice.reducer;

@@ -3,6 +3,7 @@
 import { rnk } from "@/app/components/types/Types";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import presistState from "../../components/presistState";
 
 export type lvlBoostStateType = {
 	lvlBoostState: {
@@ -10,9 +11,9 @@ export type lvlBoostStateType = {
 		gameLVLrange?: number[];
 	}[];
 };
-
+const [getLocalState, localStateSaver] = presistState("lvlBoostState");
 const initialState = {
-	lvlBoostState: [],
+	lvlBoostState: getLocalState([])!,
 } satisfies lvlBoostStateType as lvlBoostStateType;
 
 export const lvlBoostSlice = createSlice({
@@ -20,6 +21,7 @@ export const lvlBoostSlice = createSlice({
 	initialState,
 	reducers: {
 		gameDefiendCheck: (state, action: PayloadAction<string>) => {
+			localStateSaver(state.lvlBoostState);
 			let isIn = false;
 			state.lvlBoostState.forEach((item) => {
 				if (item.gameName === action.payload) {
@@ -31,34 +33,28 @@ export const lvlBoostSlice = createSlice({
 					...state.lvlBoostState,
 					{
 						gameName: action.payload,
-						gameLVLrange:[],
+						gameLVLrange: [],
 					},
 				];
 			}
-		},		
-		lvlRangeChanged: (
-      state,
-      action: PayloadAction<{ game: string; lvlRange: number[] }>
-    ) => {
-      lvlBoostSlice.caseReducers.gameDefiendCheck(state, {
-        payload: action.payload.game,
-        type: action.type,
-      });
-      state.lvlBoostState = state.lvlBoostState.map((item) =>
-        item.gameName === action.payload.game
-          ? {
-              ...item,
-              gameLVLrange: action.payload.lvlRange,
-            }
-          : item
-      );
-    },
+		},
+		lvlRangeChanged: (state, action: PayloadAction<{ game: string; lvlRange: number[] }>) => {
+			lvlBoostSlice.caseReducers.gameDefiendCheck(state, {
+				payload: action.payload.game,
+				type: action.type,
+			});
+			state.lvlBoostState = state.lvlBoostState.map((item) =>
+				item.gameName === action.payload.game
+					? {
+							...item,
+							gameLVLrange: action.payload.lvlRange,
+						}
+					: item
+			);
+		},
 	},
 });
 
-export const {
-	gameDefiendCheck,
-	lvlRangeChanged,
-} = lvlBoostSlice.actions;
+export const { gameDefiendCheck, lvlRangeChanged } = lvlBoostSlice.actions;
 
 export default lvlBoostSlice.reducer;

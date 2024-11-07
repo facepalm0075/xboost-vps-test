@@ -12,7 +12,7 @@ function MakePaymentBtn({ price, baseUrl, orderId }: props) {
 	const router = useRouter();
 	const clickHandler = async () => {
 		const response = await axios({
-			url: baseUrl + "/api/pay/boosting-order/eur/" + orderId + "/paypal",
+			url: baseUrl + "/api/pay/boosting-order/usd/" + orderId + "/paypal",
 			method: "POST",
 		});
 

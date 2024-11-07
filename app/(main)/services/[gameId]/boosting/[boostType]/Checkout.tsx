@@ -53,30 +53,27 @@ function Checkout({ gameN, boostType, dbData }: props) {
 	let data: slce = { gameName: "" };
 
 	const mainNameer1 = useAppSelector((state) => state.rankBoostSlice);
-		const nameer1 = mainNameer1.rankBoostState;
+	const nameer1 = mainNameer1.rankBoostState;
 
-		const mainNameer2 = useAppSelector((state) => state.rankWinsSlice);
-		const nameer2 = mainNameer2.rankWinsState;
+	const mainNameer2 = useAppSelector((state) => state.rankWinsSlice);
+	const nameer2 = mainNameer2.rankWinsState;
 
-		const mainNameer3 = useAppSelector((state) => state.lvlBoost);
-		const nameer3 = mainNameer3.lvlBoostState;
+	const mainNameer3 = useAppSelector((state) => state.lvlBoost);
+	const nameer3 = mainNameer3.lvlBoostState;
 
 	if (boostType === "rank boost") {
-		
 		nameer1.forEach((item) => {
 			if (item.gameName === gameN) {
 				data = item;
 			}
 		});
 	} else if (boostType === "rank wins") {
-		
 		nameer2.forEach((item) => {
 			if (item.gameName === gameN) {
 				data = item;
 			}
 		});
 	} else if (boostType === "level boost") {
-		
 		nameer3.forEach((item) => {
 			if (item.gameName === gameN) {
 				data = item;
@@ -310,7 +307,6 @@ function Checkout({ gameN, boostType, dbData }: props) {
 
 		return basePrice;
 	};
-
 	const { data: session, status } = useSession();
 	const handleCheckout = () => {
 		if (status === "authenticated") {

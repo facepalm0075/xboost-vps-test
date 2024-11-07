@@ -14,6 +14,12 @@ export type rnk = {
 	desiredRank: rnkDet | undefined;
 };
 
+export type notifications = {
+	subject: String;
+	description: String;
+	link?: String;
+}[];
+
 export type rnkw = {
 	currentRank: rnkDet | undefined;
 	wins: number | undefined;

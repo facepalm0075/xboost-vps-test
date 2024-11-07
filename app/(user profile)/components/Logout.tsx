@@ -9,6 +9,7 @@ function Logout() {
 		<div
 			onClick={() => signOut({ callbackUrl: "/" })}
 			className="profp-profc-item profilepage-logout"
+			style={{backgroundColor:"unset"}}
 		>
 			<FontAwesomeIcon icon={faRightFromBracket} className="mr-1" />
 			Logout

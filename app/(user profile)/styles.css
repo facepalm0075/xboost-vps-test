@@ -137,7 +137,7 @@ svg {
 
 .profp-profc-item {
 	padding: 5px 10px;
-	margin: 10px 15px;
+	margin: 15px 15px;
 	cursor: pointer;
 	transition: all 0.3s;
 	font-size: 16px;
@@ -145,11 +145,18 @@ svg {
 	color: #cdcdcd;
 	border: 1px solid rgb(43, 43, 43);
 	border-radius: 10px;
-	transition: all 0.3s;
+	transition: all 0.2s;
+	background-color: #181818;
 }
 
 .profp-profc-item:hover {
+	background-color: rgb(43, 43, 43);
+}
+
+.profp-profc-item-a {
+	color: white;
 	background-color: rgb(56, 56, 56);
+	pointer-events: none;
 }
 
 .profilepage-logout {
@@ -192,18 +199,16 @@ svg {
 }
 
 .order-card-container:hover {
-	border: 1px solid white;
+	border: 1px solid rgb(160, 160, 160);
 }
 
 .order-card-title-container {
 	margin-bottom: 30px;
 	padding: 9px 18px;
 	border-radius: 10px;
-	cursor: pointer;
 	text-align: center;
 	color: var(--theme-main-color);
 	border: 1px solid #3b3b3b;
-	background-color: #121212;
 }
 
 .oco-status-span {
@@ -250,18 +255,6 @@ svg {
 	animation: 1.5s upSkeletonColor linear infinite;
 }
 
-@keyframes upSkeletonColor {
-	0% {
-		background-color: rgb(61, 61, 61);
-	}
-	50% {
-		background-color: rgb(83, 83, 83);
-	}
-	100% {
-		background-color: rgb(61, 61, 61);
-	}
-}
-
 .ocgl {
 	width: 100%;
 	display: flex;
@@ -283,7 +276,7 @@ svg {
 	border-radius: 22px;
 	border: 1px solid #292929;
 	padding: 6px 15px;
-	position: relative;
+	position: fixed;
 	padding-bottom: 30px;
 	min-width: 215px;
 }
@@ -411,5 +404,142 @@ svg {
 	margin: auto;
 	border: 1px solid #7f7f7f;
 	margin-top: 30px;
+	color: white;
+}
+
+.order-progress-num {
+	width: 25px;
+	height: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--theme-main-color);
+	border-radius: 50px;
+
+	font-size: 17px;
+	font-weight: 600;
+	margin-right: 5px;
+}
+
+.order-progress-num-c span {
+	color: white;
+}
+
+.order-progress-num span {
+	color: black;
+}
+
+.order-progress-line {
+	border-bottom: 2px solid #5d5d5d;
+	width: 50px;
+}
+
+.order-progress-line-c {
+	margin: 0px 15px;
+}
+
+.order-progress-line-c svg {
+	color: #5d5d5d;
+	font-size: 18px;
+	transform: translateX(-1px);
+}
+
+.order-progress-line-c-a div {
+	border-color: rgb(172, 172, 172) !important;
+}
+
+.order-progress-line-c-a svg {
+	color: rgb(172, 172, 172) !important;
+}
+
+.order-progress-disable .order-progress-num {
+	background-color: #494949;
+}
+
+.order-progress-disable .order-progress-num span {
+	color: black !important;
+}
+
+.order-progress-disable span {
+	color: #494949;
+}
+
+.order-progress-num-c-c span {
+	color: var(--theme-main-color) !important;
+}
+
+.order-progress-num-c-c {
+	background-color: #0b3136;
+}
+
+.peyment-method-container {
+}
+
+.notif-list-skeleton {
+	animation: 1.5s upSkeletonColor linear infinite;
+	padding: 20px;
+	border-radius: 10px;
+	border: 1px solid #393939;
+	width: 100%;
+	margin: 20px auto;
+}
+
+.notif-list-item-t {
+	position: absolute;
+	top: -26px;
+	background-color: #323232;
+	border: 1px solid #656565;
+	border-bottom: none;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	padding: 4px 11px;
+	padding-bottom: 0px;
+	font-size: 14px;
+	color: var(--theme-main-color);
+}
+
+.notif-list-item-d {
+	position: absolute;
+	top: 35px;
+	right: 20px;
+	background-color: #212121;
+	border: 1px solid #656565;
+	border-top: none;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	padding: 4px 11px;
+	padding-top: 0px;
+	font-size: 14px;
+	color: var(--theme-main-color);
+}
+
+.user-prof-h1-bck {
+	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+}
+
+.user-prof-h1-bck h1 {
+	color: white !important;
+	font-size: 25px !important;
+	font-weight: 700 !important;
+}
+
+.user-prof-h1-bck span {
+	font-size: 20px;
+	margin-right: 10px;
+	transition: all 0.3s;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: 35px;
+	height: 35px;
+	border-radius: 11px;
+	background-color: #272727;
+}
+
+.user-prof-h1-bck span:hover {
+	background-color: #2e2e2e;
+	box-shadow: 0 0 9px -1px black;
 	color: white;
 }

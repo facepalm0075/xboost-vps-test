@@ -7,38 +7,42 @@ import NextTopLoader from "nextjs-toploader";
 import Script from "next/script";
 import ScrollFix from "@/app/components/ScrollFix";
 import { cn } from "@/lib/utils";
+import StoreProvider from "../redux/Provider";
+import MainChatHolder from "../components/MainChatHolder";
 
 export const metadata: Metadata = {
-  title: "xBoost",
-  description: "Future of Boosting",
+	title: "xBoost",
+	description: "Future of Boosting",
 };
 
 export const viewport: Viewport = {
-  initialScale: 1.0,
-  width: "device-width",
+	initialScale: 1.0,
+	width: "device-width",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  
-  return (
-    <html lang="en">
-      <body
-      id="body"
-        style={{ fontWeight: "400", fontSize: "15px" }}
-        className={`${lexend.className} ${cn("min-h-screen bg-background font-sans antialiased", lexend.variable)}`}
-      >
-        <Navbar />
-        <NextTopLoader speed={1500} showSpinner={false} />
-        {children}
-        <ScrollFix />
-        <Footer />
-      </body>
-      <Script strategy="lazyOnload" id="link-disable">
-        {`
+	return (
+		<html lang="en">
+			<body
+				id="body"
+				style={{ fontWeight: "400", fontSize: "15px" }}
+				className={`${lexend.className} ${cn("min-h-screen bg-background font-sans antialiased", lexend.variable)}`}
+			>
+				<StoreProvider>
+					<Navbar />
+					<NextTopLoader speed={1500} showSpinner={false} />
+					{children}
+					<ScrollFix />
+					<MainChatHolder />
+					<Footer />
+				</StoreProvider>
+			</body>
+			<Script strategy="lazyOnload" id="link-disable">
+				{`
           window.onscroll = function() {pgScroll()};
           var header = document.getElementById("MHeader");
           var fixer = document.getElementById("h-height-fix");
@@ -66,7 +70,7 @@ export default function RootLayout({
 
       
       `}
-      </Script>
-    </html>
-  );
+			</Script>
+		</html>
+	);
 }

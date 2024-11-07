@@ -50,3 +50,8 @@ export const addOrderLevelBoostRequest = z.object({
 	dropDownOptions: dropOptions,
 	toggleOptions: toggleOptions,
 });
+
+export const allNotifRequest = z.object({
+	skip: z.number().int("skip must be an integer"),
+	take: z.number().int("take rank must be an integer"),
+});

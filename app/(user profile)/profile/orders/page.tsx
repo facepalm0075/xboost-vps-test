@@ -3,21 +3,10 @@ import { authOptions } from "@/app/api/auth/_options";
 import prisma from "@/src/lib/db";
 import React, { Suspense } from "react";
 import { LoginLoading } from "@/app/components/Loadings";
-import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import { ToolTipEO } from "@/app/components/CostumToolTip";
-import CopyOrderId from "@/app/components/CopyOrderId";
-import Link from "next/link";
-import { boostingOrderJson } from "@/app/components/types/Types";
-
-import {
-	levelBoostOrderDetailsType,
-	rankWinsOrderDetailsType,
-	rankBoostOrderDetailsType,
-} from "@/app/api/add-order/route";
-import { dbRes } from "@/app/(main)/services/[gameId]/boosting/[boostType]/page";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import OrderCardGenerator from "../../components/OrderCardGenerator";
+import Link from "next/link";
 
 async function page() {
 	const session = await getServerSession(authOptions);
@@ -35,10 +24,21 @@ async function page() {
 			status: true,
 			id: true,
 		},
+		orderBy: {
+			updatedAt: "desc",
+		},
 	});
 	if (dbitems.length === 0) return <div>not found!</div>;
 	return (
 		<div>
+			<div className="user-prof-h1-bck">
+				<Link href={"/profile/dashboard"}>
+					<span>
+						<FontAwesomeIcon icon={faAngleLeft} />
+					</span>
+				</Link>
+				<h1>Orders</h1>
+			</div>
 			<Suspense
 				fallback={
 					<>

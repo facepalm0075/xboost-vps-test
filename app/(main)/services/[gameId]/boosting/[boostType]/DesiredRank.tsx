@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from "@/app/redux/hooks";
 import { gameDefiendCheck, rankChanged } from "@/app/redux/Features/ordersDetails/rankBoostSlice";
 import RankSelect from "./RankSelect";
 import { rnkDet, md } from "@/app/components/types/Types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type mainProps = {
 	gameN: string;
@@ -100,10 +100,11 @@ export default function DesiredRank({ gameN, data, rankMmrShow }: mainProps) {
 			rankStar: data[data.length - 1].rankNums[0].content,
 		},
 	};
+
 	useEffect(() => {
 		dispatch(gameDefiendCheck(gameN));
 		nameer.map((item) => {
-			if (item.gameName === gameN) {				
+			if (item.gameName === gameN) {
 				if (!item.gameRanks) {
 					dispatch(rankChanged({ game: gameN, ranks: initVal }));
 				} else if (!item.gameRanks.currentRank) {

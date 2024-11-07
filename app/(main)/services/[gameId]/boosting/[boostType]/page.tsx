@@ -16,6 +16,7 @@ import DesiredLVLRange from "./DesiredLVLRange";
 import Providers from "@/app/components/Providers";
 import CheckoutForm from "@/app/components/CheckoutForm";
 import React from "react";
+import { IsWindowReady } from "@/app/components/IsWindowReady";
 
 type props = {
 	params: { gameId: string; boostType: string };
@@ -74,7 +75,7 @@ async function page({ params }: props) {
 		<>
 			{res.isEnabled ? (
 				<>
-					<StoreProvider>
+					<IsWindowReady callback={<>Loading...</>}>
 						<CheckoutForm boostType={boostType} gameName={gameId} />
 						<div className="gameType-main flex">
 							<div className="mt-7 mr-3 pr-4 w-3/4">
@@ -155,7 +156,7 @@ async function page({ params }: props) {
 								</Providers>
 							</div>
 						</div>
-					</StoreProvider>
+					</IsWindowReady>
 					<div className="flex">
 						<div className="mr-3 pr-4 w-3/4">
 							<OrderDetails />

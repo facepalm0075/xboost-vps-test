@@ -3,6 +3,7 @@
 import { op, op2, rnk } from "@/app/components/types/Types";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import presistState from "../../components/presistState";
 
 export type extraOptiontStateType = {
 	extraOptiontState: {
@@ -13,8 +14,10 @@ export type extraOptiontStateType = {
 	}[];
 };
 
+const [getLocalState, localStateSaver] = presistState("extraOptiontState");
+
 const initialState = {
-	extraOptiontState: [],
+	extraOptiontState: getLocalState([])!,
 } satisfies extraOptiontStateType as extraOptiontStateType;
 
 export const extraOptiontSlice = createSlice({
@@ -25,6 +28,7 @@ export const extraOptiontSlice = createSlice({
 			state,
 			action: PayloadAction<{ gameName: string; boostType: string }>
 		) => {
+			localStateSaver(state.extraOptiontState);
 			let isIn = false;
 			state.extraOptiontState.forEach((item) => {
 				if (

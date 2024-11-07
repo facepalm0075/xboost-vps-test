@@ -3,10 +3,11 @@ import { authOptions } from "@/app/api/auth/_options";
 import prisma from "@/src/lib/db";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { ToolTipEO } from "@/app/components/CostumToolTip";
 import CopyOrderId from "@/app/components/CopyOrderId";
 import MakePaymentBtn from "@/app/(user profile)/components/MakePaymentBtn";
+import OrderProgres from "@/app/(user profile)/components/OrderProgres";
 
 type props = {
 	params: { orderId: string };
@@ -31,38 +32,29 @@ async function page({ params }: props) {
 				</span>
 
 				<CopyOrderId />
-
-				<span
-					style={{
-						backgroundColor:
-							dbitems.status === "not paid"
-								? "lightyellow"
-								: dbitems.status === "paid"
-									? "lightgreen"
-									: "",
-					}}
-					className="oic-span2"
-				>
-					{dbitems.status}
-				</span>
 			</div>
 
+			<OrderProgres status={dbitems.status}/>
+
 			{dbitems.status === "not paid" && (
-				<div className="flex">
-					<div className="w-1/2 p-5">
-						<div className="peyment-method-container">
-							<h2>Select payment method</h2>
-							<MakePaymentBtn
-								price={dbitems.price}
-								baseUrl={process.env.BASE_URL!}
-								orderId={dbitems.id}
-							/>
+				<>
+					
+					<div className="flex">
+						<div className="w-1/2 p-5">
+							<div className="peyment-method-container">
+								<h1>Select payment method</h1>
+								<MakePaymentBtn
+									price={dbitems.price}
+									baseUrl={process.env.BASE_URL!}
+									orderId={dbitems.id}
+								/>
+							</div>
+						</div>
+						<div className="w-1/2 p-5">
+							<div className="checkout-review"></div>
 						</div>
 					</div>
-					<div className="w-1/2 p-5">
-						<div className="checkout-review"></div>
-					</div>
-				</div>
+				</>
 			)}
 		</>
 	);
