@@ -4,6 +4,7 @@ import React, { Children, MutableRefObject, ReactNode, useEffect, useRef, useSta
 import { io } from "socket.io-client";
 import MainChat from "@/app/components/MainChat";
 import SoundPlayer from "@/app/components/SoundPlayer";
+import { useSession } from "next-auth/react";
 
 type props = {
 	coock: string | undefined;
@@ -18,9 +19,11 @@ function MainChatAdmin({ coock }: props) {
 	);
 	const [notif, setNotif] = useState(0);
 	const [socket, setSocket] = useState<any>(null);
+	const { data: session } = useSession();
 
 	let chatToRef = useRef<string | null>(null);
 	let socketRef = useRef<any>(null);
+	let fullChatsRef = useRef<string[]>([]);
 
 	const adminConnect = async () => {
 		const token = coock;
@@ -32,6 +35,9 @@ function MainChatAdmin({ coock }: props) {
 			})
 		);
 	};
+	useEffect(() => {
+		fullChatsRef.current = fullChats;
+	}, [fullChats]);
 
 	useEffect(() => {
 		socket?.on("get-all-rooms", (array: string[], fullRooms: string[]) => {
@@ -40,8 +46,15 @@ function MainChatAdmin({ coock }: props) {
 		});
 
 		socket?.on("notifMessage", (room: string, message: string) => {
-			setNotifMessage((prev) => [...prev, { room: room, message: message, id: prev.length + 1 }]);
 			if (chatToRef.current !== room) {
+				if (!fullChatsRef.current.includes(room)) {
+					console.log(fullChatsRef.current);
+					console.log(room);
+					setNotifMessage((prev) => [
+						...prev,
+						{ room: room, message: message, id: prev.length + 1 },
+					]);
+				}
 				setNotif((prev) => prev + 1);
 			}
 		});
@@ -149,6 +162,7 @@ function MainChatAdmin({ coock }: props) {
 								use="admin"
 								adminStartedChat={adminSchatHandler}
 								sendTo={chatTo}
+								adminCred={session?.user?.email!}
 							/>
 						) : (
 							<MainChat
@@ -156,6 +170,7 @@ function MainChatAdmin({ coock }: props) {
 								use="admin"
 								adminStartedChat={adminSchatHandler}
 								sendTo={chatTo}
+								adminCred={session?.user?.email!}
 							/>
 						)}
 					</>
@@ -209,7 +224,6 @@ const FullNotifer = ({ room, fullChats, children }: fProps) => {
 	} else {
 		isIn = false;
 	}
-	console.log("isin :" + isIn);
 	return (
 		<>
 			<div style={isIn ? { border: "1px solid red", pointerEvents: "none" } : {}}>

@@ -10,7 +10,6 @@ function UserChatForm({ chatItem, senderHandler }: props) {
 	return (
 		<>
 			<div className="user-chat-container">
-				
 				<div className="bg-white text-black h-48 overflow-y-auto my-3">
 					{chatItem.length > 0 &&
 						chatItem.map((item, index) => {
