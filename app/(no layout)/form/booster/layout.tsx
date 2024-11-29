@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import "@/app/globals.css";
+import Image from "next/image";
 import "./styles.css";
 
 export const metadata: Metadata = {
-	title: "xBoost",
+	title: "xBoosts",
 	description: "Future of Boosting",
 };
+
 
 export default function RootLayout({
 	children,
@@ -14,10 +15,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<>
-			<div className="flex panel-layout-container">
-				<div className="w-80"></div>
-				<div className="w-full px-5 pt-5 relative">{children}</div>
-				<div className="w-80 h-fit mt-7"></div>
+			<Image src={"/boosterFormBg.jpg"} width={300} height={150} alt="bg-wallpaper" className="bform-bg" />
+			<div className="bform-container">
+				{children}
 			</div>
 		</>
 	);

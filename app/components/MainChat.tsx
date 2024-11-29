@@ -37,9 +37,9 @@ function MainChat({ use, sendTo, adminStartedChat, adminCred }: props) {
 				.map((item: any) => {
 					let who = "";
 					if (use === "user") {
-						if (item.sender === local2)	who = "you";						
+						if (item.sender === local2) who = "you";
 					} else {
-						if (item.sender === adminCred) who = "you";						
+						if (item.sender === adminCred) who = "you";
 					}
 					return { message: item.content, sender: who };
 				})
@@ -85,6 +85,7 @@ function MainChat({ use, sendTo, adminStartedChat, adminCred }: props) {
 		});
 		socket?.on("receive-message", (message: string) => {
 			displayMessage(message, "other");
+			setNotif((prev) => prev + 1);
 		});
 	}, [socket]);
 

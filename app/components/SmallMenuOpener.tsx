@@ -15,6 +15,9 @@ type props = {
 	fadeOutClass?: string;
 	children: ReactNode;
 	items: ReactNode;
+	outClickIgnore?: boolean;
+	inClickClose?: boolean;
+	closerState?: number;
 };
 function SmallMenuOpener({
 	opened,
@@ -29,12 +32,16 @@ function SmallMenuOpener({
 	fadeOutClass = "SmallMenuOpener-d",
 	children,
 	items,
+	outClickIgnore,
+	inClickClose,
+	closerState,
 }: props) {
 	const [leftDir, setLeftDir] = useState(0);
 	const [isOpen, setIsOpen] = useState(false);
 	const mainRef = useOutsideClick(
 		() => {},
 		() => {
+			if (outClickIgnore) return;
 			close();
 		}
 	);
@@ -45,7 +52,9 @@ function SmallMenuOpener({
 		() => {}
 	);
 	const itemsRef = useOutsideClick(
-		() => {},
+		() => {
+			if (inClickClose) close();
+		},
 		() => {}
 	);
 	const open = () => {
@@ -53,6 +62,9 @@ function SmallMenuOpener({
 			close();
 		} else {
 			itemsRef.current!.className = `${itemsClass} ${fadeInClass}`;
+			setTimeout(() => {
+				itemsRef.current!.className = `${itemsClass} SmallMenuOpener-items-activated`;
+			}, 305);
 			setIsOpen(true);
 			opened && opened(true);
 		}
@@ -71,6 +83,9 @@ function SmallMenuOpener({
 		setLeftDir(min);
 	}, []);
 
+	useEffect(() => {
+		close();
+	}, [closerState]);
 	return (
 		<div ref={mainRef} className="SmallMenuOpener-c">
 			{isTop && (
@@ -96,8 +111,8 @@ function SmallMenuOpener({
 					<div
 						ref={itemsRef}
 						style={{
-							width: `${width}px`,
-							height: `${height}px`,
+							width: `${width > 0 ? width + "px" : "100%"}`,
+							height: `${height > 0 ? height + "px" : "auto"}`,
 							transform: `translate(${rtl ? `-${leftDir}px` : "0px"},${itemsTop})`,
 						}}
 						className={itemsClass}

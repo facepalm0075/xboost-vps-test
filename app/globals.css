@@ -494,13 +494,11 @@ footer {
 	box-shadow: 0 0 14px 0 black;
 	z-index: 10;
 	width: 170px;
-	transform: translate(-111px, 7px);
 	display: none;
-	opacity: 1;
 }
 
 .profile-content-a {
-	display: block;
+	display: block !important;
 	animation-name: pca;
 	animation-duration: 0.3s;
 	animation-fill-mode: forwards;
@@ -830,6 +828,11 @@ nav::before {
 	border: 1px solid #4b4b4b;
 	border-radius: 8px;
 	box-shadow: 0 0 14px 0 black;
+}
+
+.SmallMenuOpener-items-activated {
+	display: block !important;
+	opacity: 1 !important;
 }
 
 .SmallMenuOpener-e {

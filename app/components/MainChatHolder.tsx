@@ -18,6 +18,7 @@ function MainChatHolder() {
 				width={300}
 				height={300}
 				itemsClass="main-user-chat-mo"
+				outClickIgnore={true}
 				items={
 					<>
 						<div>

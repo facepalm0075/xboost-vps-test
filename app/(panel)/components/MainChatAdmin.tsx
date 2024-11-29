@@ -48,14 +48,12 @@ function MainChatAdmin({ coock }: props) {
 		socket?.on("notifMessage", (room: string, message: string) => {
 			if (chatToRef.current !== room) {
 				if (!fullChatsRef.current.includes(room)) {
-					console.log(fullChatsRef.current);
-					console.log(room);
 					setNotifMessage((prev) => [
 						...prev,
 						{ room: room, message: message, id: prev.length + 1 },
 					]);
+					setNotif((prev) => prev + 1);
 				}
-				setNotif((prev) => prev + 1);
 			}
 		});
 
@@ -229,7 +227,7 @@ const FullNotifer = ({ room, fullChats, children }: fProps) => {
 			<div style={isIn ? { border: "1px solid red", pointerEvents: "none" } : {}}>
 				{isIn && (
 					<>
-						"another admin talking" <br />
+						another admin talking <br />
 					</>
 				)}
 
