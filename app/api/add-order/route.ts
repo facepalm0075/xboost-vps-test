@@ -124,6 +124,7 @@ export async function POST(request: NextRequest) {
 			Number(price),
 			dbitems.id
 		);
+		
 		addUserNotification({
 			userEmail: session!.user!.email!,
 			subject: "Order Added",

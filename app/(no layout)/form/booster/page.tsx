@@ -6,6 +6,8 @@ import GameAplly from "./components/GameAplly";
 
 async function page() {
 	const session = await getServerSession(authOptions);
+	
+	
 
 	if (!session) {
 		return (

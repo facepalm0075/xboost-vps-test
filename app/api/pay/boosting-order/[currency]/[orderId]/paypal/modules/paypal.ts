@@ -4,13 +4,13 @@ const generateAccessToken = async () => {
 		username: process.env.PAYPAL_CLIENT_ID!,
 		password: process.env.PAYPAL_CLIENT_SECRET!,
 	};
+
 	const response = await axios({
 		url: process.env.PAYPAL_BASE_URL! + "/v1/oauth2/token",
 		method: "POST",
 		data: "grant_type=client_credentials",
 		auth: auth,
 	});
-
 	return response.data.access_token;
 };
 

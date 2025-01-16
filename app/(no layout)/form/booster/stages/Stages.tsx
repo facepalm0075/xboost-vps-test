@@ -4,8 +4,35 @@ import React, { useEffect, useState } from "react";
 import jsonData from "@/public/booster_questions.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { DiscordUser, EmailFormLoginData } from "@/lib/schema";
 
-export function StartStage() {
+type props = {
+	nextCall: number;
+	next: (item: string | string[]) => void;
+};
+type sProps = props & { data: string };
+type aProps = props & { data: string[] };
+type aProps2 = props & { data: [string, string] };
+type extraDataType = { extraData: any[] };
+
+export function StartStage({ next, nextCall, data }: sProps) {
+	const [first, setFirst] = useState(true);
+	const [input, setInput] = useState(data);
+
+	const submiter = () => {
+		if (input.length > 2) {
+			next(input);
+		}
+	};
+
+	useEffect(() => {
+		if (first) {
+			setFirst(false);
+			return;
+		}
+
+		submiter();
+	}, [nextCall]);
 	return (
 		<>
 			<div>
@@ -16,13 +43,42 @@ export function StartStage() {
 					name="name"
 					placeholder="Your name..."
 					spellCheck="false"
+					value={input}
+					onChange={(e) => {
+						setInput(e.target.value);
+					}}
 				/>
 			</div>
 		</>
 	);
 }
 
-export function EmailnDiscord() {
+export function EmailnDiscord({ next, nextCall, data }: aProps2) {
+	const [first, setFirst] = useState(true);
+	const [input, setInput] = useState(data);
+
+	const { error: zodError } = EmailFormLoginData.safeParse({ email: input[0] });
+	const { error: zodError2 } = DiscordUser.safeParse({ discordId: input[1] });
+
+	const submiter = () => {
+		if (zodError) {
+		} else {
+			if (zodError2) {
+				console.log(input[1], zodError2);
+			} else {
+				next(input);
+			}
+		}
+	};
+
+	useEffect(() => {
+		if (first) {
+			setFirst(false);
+			return;
+		}
+
+		submiter();
+	}, [nextCall]);
 	return (
 		<>
 			<div>
@@ -32,6 +88,12 @@ export function EmailnDiscord() {
 					name="email"
 					placeholder="Email address..."
 					spellCheck="false"
+					value={input[0]}
+					onChange={(e) =>
+						setInput((prev) => {
+							return [(prev[0] = e.target.value), prev[1]];
+						})
+					}
 				/>
 				<br />
 				<br />
@@ -41,17 +103,35 @@ export function EmailnDiscord() {
 					name="name"
 					placeholder="Discord ID..."
 					spellCheck="false"
+					value={input[1]}
+					onChange={(e) =>
+						setInput((prev) => {
+							return [prev[0], (prev[1] = e.target.value)];
+						})
+					}
 				/>
 			</div>
 		</>
 	);
 }
 
-export function Country() {
+export function Country({ next, nextCall, data }: sProps) {
 	const countries = jsonData.countries;
-	const [selectedCountry, setSelectedCountry] = useState(() => countries[0]);
+	const [selectedCountry, setSelectedCountry] = useState(() => data);
 	const [closer, setCloser] = useState(0);
 	const [isOpen, setIsOpen] = useState(false);
+	const [first, setFirst] = useState(true);
+
+	useEffect(() => {
+		if (first) {
+			setFirst(false);
+			return;
+		}
+
+		if (selectedCountry !== "__ SELECT __") {
+			next(selectedCountry);
+		}
+	}, [nextCall]);
 
 	useEffect(() => {
 		document?.querySelector("#bform-stages-dropdown")?.addEventListener("keydown", (event: any) => {
@@ -124,20 +204,38 @@ export function Country() {
 	);
 }
 
-export function Servers() {
-	const data = ["US North", "EU West", "me", "East Asia", "Australia"];
-	const [selected, setSelected] = useState("");
+export function Servers({ next, nextCall, data, extraData }: aProps & extraDataType) {
+	const cData = extraData as string[];
+	const [selected, setSelected] = useState<string[]>(data);
+	const [first, setFirst] = useState(true);
+
+	useEffect(() => {
+		if (first) {
+			setFirst(false);
+			return;
+		}
+
+		if (selected.length > 0) {
+			next(selected);
+		}
+	}, [nextCall]);
+
 	const clickHandler = (item: string) => {
-		setSelected(item);
+		if (selected.includes(item)) {
+			const res = selected.filter((i) => i !== item);
+			setSelected(res);
+		} else {
+			setSelected([...selected, item]);
+		}
 	};
 	return (
 		<>
 			<div className="inline-flex gap-6 flex-wrap justify-between bform-stages-radio-items-c">
-				{data.map((item, index) => {
+				{cData.map((item, index) => {
 					return (
 						<div
 							className={`bform-stages-radio-items
-								${item === selected ? "bform-stages-radio-items-active" : ""}`}
+								${selected.includes(item) ? "bform-stages-radio-items-active" : ""}`}
 							onClick={() => {
 								clickHandler(item);
 							}}
@@ -152,26 +250,123 @@ export function Servers() {
 	);
 }
 
-export function Platforms() {
+export function Platforms({ next, nextCall, data, extraData }: aProps & extraDataType) {
+	const pData = extraData as string[];
+	const [selected, setSelected] = useState<string[]>(data);
+	const [first, setFirst] = useState(true);
+
+	useEffect(() => {
+		if (first) {
+			setFirst(false);
+			return;
+		}
+
+		if (selected.length > 0) {
+			next(selected);
+		}
+	}, [nextCall]);
+
+	const clickHandler = (item: string) => {
+		if (selected.includes(item)) {
+			const res = selected.filter((i) => i !== item);
+			setSelected(res);
+		} else {
+			setSelected([...selected, item]);
+		}
+	};
 	return (
 		<>
-			<div>radio baxes </div>
+			<div className="inline-flex gap-6 flex-wrap justify-between bform-stages-radio-items-c">
+				{pData.map((item, index) => {
+					return (
+						<div
+							className={`bform-stages-radio-items
+								${selected.includes(item) ? "bform-stages-radio-items-active" : ""}`}
+							onClick={() => {
+								clickHandler(item);
+							}}
+							key={index}
+						>
+							{item}
+						</div>
+					);
+				})}
+			</div>
 		</>
 	);
 }
 
-export function Rank() {
+export function Rank({ next, nextCall, data, extraData }: sProps & extraDataType) {
+	const pData = extraData as string[];
+	const [selected, setSelected] = useState<string>(data);
+	const [first, setFirst] = useState(true);
+
+	useEffect(() => {
+		if (first) {
+			setFirst(false);
+			return;
+		}
+
+		if (selected.length > 0) {
+			next(selected);
+		}
+	}, [nextCall]);
+
+	const clickHandler = (item: string) => {
+		setSelected(item);
+	};
 	return (
 		<>
-			<div>rank </div>
+			<div className="inline-flex gap-6 flex-wrap justify-between bform-stages-radio-items-c">
+				{pData.map((item, index) => {
+					return (
+						<div
+							className={`bform-stages-radio-items
+								${selected.includes(item) ? "bform-stages-radio-items-active" : ""}`}
+							onClick={() => {
+								clickHandler(item);
+							}}
+							key={index}
+						>
+							{item}
+						</div>
+					);
+				})}
+			</div>
 		</>
 	);
 }
 
-export function TextArea() {
+export function TextArea({ next, nextCall, data }: sProps) {
+	const [first, setFirst] = useState(true);
+	const [input, setInput] = useState(data);
+
+	const submiter = () => {
+		if (input.length > 2) {
+			next(input);
+		}
+	};
+
+	useEffect(() => {
+		if (first) {
+			setFirst(false);
+			return;
+		}
+
+		submiter();
+	}, [nextCall]);
 	return (
 		<>
-			<div>text area </div>
+			<textarea
+				placeholder="Max Character 300"
+				style={{ width: "100%", minHeight: "150px", maxHeight: "150px" }}
+				className="bform-stages-txt bform-stages-txtarea"
+				spellCheck="false"
+				value={input}
+				onChange={(e) => {
+					setInput(e.target.value);
+				}}
+			></textarea>
 		</>
 	);
 }

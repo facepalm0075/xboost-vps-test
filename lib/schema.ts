@@ -55,3 +55,19 @@ export const allNotifRequest = z.object({
 	skip: z.number().int("skip must be an integer"),
 	take: z.number().int("take rank must be an integer"),
 });
+
+export const DiscordUser = z.object({
+	discordId: z.string().regex(/^[\w-]{2,32}\d{4}$/, {
+		message: "Invalid Discord ID. It must be in the format 'username1234'.",
+	}),
+});
+
+export const boosterForm = z.object({
+	start: z.string(),
+	EmailnDiscord: z.tuple([z.string(), z.string()]),
+	Country: z.string(),
+	Server: z.array(z.string()),
+	Platform: z.array(z.string()),
+	Rank: z.string(),
+	TextArea: z.string(),
+});

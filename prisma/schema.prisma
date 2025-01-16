@@ -9,21 +9,22 @@ datasource db {
 }
 
 model User {
-  id              String                            @id @default(cuid())
-  name            String?
-  email           String                            @unique
-  role            String?                           @default("user")
-  boostingGames   Json?
-  emailVerified   DateTime?
-  image           String?
-  accounts        Account[]
-  sessions        Session[]
-  walletBalance   Int                               @default(0)
-  orders          userOrders[]
-  gatewayPayments buyerPaymentGatewayTransactions[]
-  notifications   userNotification[]
+  id                   String                            @id @default(cuid())
+  name                 String?
+  email                String                            @unique
+  role                 String?                           @default("user")
+  boostingGames        Json?
+  boostingRoleRequests boosterRoleRequests[]
+  emailVerified        DateTime?
+  image                String?
+  accounts             Account[]
+  sessions             Session[]
+  walletBalance        Int                               @default(0)
+  orders               userOrders[]
+  gatewayPayments      buyerPaymentGatewayTransactions[]
+  notifications        userNotification[]
   // Optional for WebAuthn support
-  Authenticator   Authenticator[]
+  Authenticator        Authenticator[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -181,6 +182,17 @@ model supportChatsSession {
   userCredentials String?
   roomId          String
   chats           Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model boosterRoleRequests {
+  id        String @id @default(uuid())
+  User      User   @relation(fields: [userEmail], references: [email])
+  userEmail String
+  game      String
+  data      Json
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

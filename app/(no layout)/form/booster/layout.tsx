@@ -7,7 +7,6 @@ export const metadata: Metadata = {
 	description: "Future of Boosting",
 };
 
-
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -15,9 +14,15 @@ export default function RootLayout({
 }>) {
 	return (
 		<>
-			<Image src={"/boosterFormBg.jpg"} width={300} height={150} alt="bg-wallpaper" className="bform-bg" />
-			<div className="bform-container">
-				{children}
+			<div>
+				<Image
+					src={"/boosterFormBg.jpg"}
+					width={300}
+					height={150}
+					alt="bg-wallpaper"
+					className="bform-bg"
+				/>
+				<div className="bform-container ~translate-y-10/44">{children}</div>
 			</div>
 		</>
 	);

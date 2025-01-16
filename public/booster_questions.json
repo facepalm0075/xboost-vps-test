@@ -3,7 +3,8 @@
 		"rainbow six siege": {
 			"questions": [
 				{
-					"type": "start"
+					"type": "start",
+					"enabled": true
 				},
 				{
 					"type": "EmailnDiscord",
@@ -15,29 +16,28 @@
 					"type": "Country",
 					"title": "What is your country of residence?",
 					"innerText": "",
-					"enabled": true,
-					"items": []
+					"enabled": true
 				},
 				{
 					"type": "Server",
 					"title": "What server/regions you can play on?",
 					"innerText": "",
 					"enabled": true,
-					"items": []
+					"items": ["US North", "EU West", "me", "East Asia", "Australia"]
 				},
 				{
 					"type": "Platform",
 					"title": "What platforms do you play on?",
 					"innerText": "",
 					"enabled": true,
-					"items": []
+					"items": ["PC", "XBOX", "PlayStation"]
 				},
 				{
 					"type": "Rank",
 					"title": "What was your last R6 rank?",
 					"innerText": "",
 					"enabled": true,
-					"items": []
+					"items": ["diamond", "champion"]
 				},
 				{
 					"type": "TextArea",
@@ -47,14 +47,16 @@
 				},
 				{
 					"type": "finish",
-					"title": "Thanks for your time."
+					"title": "Thanks for your time.",
+					"enabled": true
 				}
 			]
 		},
 		"apex legends": {
 			"questions": [
 				{
-					"type": "start"
+					"type": "start",
+					"enabled": true
 				},
 				{
 					"type": "EmailnDiscord",
@@ -98,14 +100,16 @@
 				},
 				{
 					"type": "finish",
-					"title": "Thanks for your time."
+					"title": "Thanks for your time.",
+					"enabled": true
 				}
 			]
 		},
 		"valorant": {
 			"questions": [
 				{
-					"type": "start"
+					"type": "start",
+					"enabled": true
 				},
 				{
 					"type": "EmailnDiscord",
@@ -131,7 +135,7 @@
 					"type": "Platform",
 					"title": "What platforms do you play on?",
 					"innerText": "",
-					"enabled": true,
+					"enabled": false,
 					"items": []
 				},
 				{
@@ -149,7 +153,8 @@
 				},
 				{
 					"type": "finish",
-					"title": "Thanks for your time."
+					"title": "Thanks for your time.",
+					"enabled": true
 				}
 			]
 		}

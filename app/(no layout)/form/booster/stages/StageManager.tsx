@@ -19,10 +19,13 @@ import {
 import booster_questions from "@/public/booster_questions.json";
 
 export type boosterFormType = {
-	test1?: string;
-	test2?: string;
-	test3?: string;
-	test4?: string;
+	start: string;
+	EmailnDiscord: [string, string];
+	Country: string;
+	Server: string[];
+	Platform: string[];
+	Rank: string;
+	TextArea: string;
 };
 
 type animationType = {
@@ -38,6 +41,7 @@ type animationType = {
 
 type mainProp = {
 	game: string;
+	reset: () => void;
 };
 
 type qDataTye = {
@@ -48,15 +52,23 @@ type qDataTye = {
 	enabled: boolean;
 }[];
 
-function StageManager({ game }: mainProp) {
-	const [state, setState] = useState<boosterFormType>({});
+function StageManager({ game, reset }: mainProp) {
+	const [state, setState] = useState<boosterFormType>({
+		start: "",
+		EmailnDiscord: ["", ""],
+		Country: "__ SELECT __",
+		Server: [],
+		Platform: [],
+		Rank: "",
+		TextArea: "",
+	});
+	const [nextCall, setNextCall] = useState(0);
 	const [stageName, setStageName] = useState("start");
 	const [stage, setStage] = useState(0);
 	const [animation, setAnimation] = useState<animationType>({
 		initial: { x: 20, opacity: 0 },
 		animate: { x: 0, opacity: 1 },
 	});
-	const stageRef = useRef(stage);
 
 	const prevStyle = {
 		initial: { x: -20, opacity: 0 },
@@ -72,23 +84,36 @@ function StageManager({ game }: mainProp) {
 	};
 
 	const qData: any = booster_questions;
-	const questions: qDataTye = qData.games[game].questions;
+	const questions: qDataTye = qData.games[game].questions.filter((i: any) => {
+		if (i.enabled) {
+			return i;
+		} else {
+		}
+	});
 
-	const next = () => {
+	const nextCallTrigger = () => {
+		setNextCall((prev) => prev + 1);
+	};
+
+	const next = (item: any) => {
 		if (questions.length - 1 > stage) {
-			setAnimation((prev) => nextStyle);
-			setStageName((prev) => questions[stageRef.current + 1].type);
-			setStage((prev) => {
-				stageRef.current = prev + 1;
-				return prev + 1;
+			setState((prevState) => ({
+				...prevState,
+				[stageName]: item,
+			}));
+			console.log({
+				...state,
+				[stageName]: item,
 			});
+			setAnimation((prev) => nextStyle);
+			setStageName((prev) => questions[stage + 1].type);
+			setStage((prev) => prev + 1);
 		}
 	};
 	const prev = () => {
 		setAnimation((prev) => prevStyle);
-		setStageName((prev) => questions[stageRef.current - 1].type);
+		setStageName((prev) => questions[stage - 1].type);
 		setStage((prev) => {
-			stageRef.current = prev - 1;
 			return prev - 1;
 		});
 	};
@@ -96,7 +121,7 @@ function StageManager({ game }: mainProp) {
 	const nextBtn = (
 		<>
 			<div className="flex gap-2 items-baseline">
-				<div className="bform-nextbtn" onClick={next}>
+				<div className="bform-nextbtn" onClick={nextCallTrigger}>
 					next
 				</div>
 				<div className="text-xs whitespace-nowrap text-neutral-50">press ENTER</div>
@@ -115,29 +140,27 @@ function StageManager({ game }: mainProp) {
 		document?.querySelector("#bform-stages")?.addEventListener("keydown", (event: any) => {
 			if (event.key !== "Enter") return;
 
-			next();
+			nextCallTrigger();
 		});
 	}, []);
 
 	const submiter = async () => {
-		boosterFormSubmit("dabbe");
+		const res = await boosterFormSubmit(state, game);
+		console.log(res?.message);
 	};
 	return (
 		<>
 			<Wrapper animation={startStyle}>
 				<div tabIndex={0} id="bform-stages" className="bform-stages-container">
 					<div className="flex gap-3 items-start">
-						{stage > 0 && (
-							<>
-								<div
-									style={{ borderRight: "1px solid #999", marginTop: "9px" }}
-									className="pr-4 text-xl text-neutral-50"
-									onClick={prev}
-								>
-									<FontAwesomeIcon icon={faArrowLeft} />
-								</div>
-							</>
-						)}
+						<div
+							style={{ borderRight: "1px solid #999", marginTop: "9px" }}
+							className="pr-4 text-xl text-neutral-50 cursor-pointer"
+							onClick={stage > 0 ? prev : reset}
+						>
+							<FontAwesomeIcon icon={faArrowLeft} />
+						</div>
+
 						<div key={stage}>
 							{stage === 0 ? (
 								<h2>Welcome Stranger</h2>
@@ -151,48 +174,63 @@ function StageManager({ game }: mainProp) {
 					<div className="my-6 px-4">
 						{stageName === "start" && (
 							<>
-								<StartStage />
+								<StartStage next={next} nextCall={nextCall} data={state.start} />
 							</>
 						)}
 						{stageName === "EmailnDiscord" && (
 							<>
 								<Wrapper animation={animation}>
-									<EmailnDiscord />
+									<EmailnDiscord next={next} nextCall={nextCall} data={state.EmailnDiscord} />
 								</Wrapper>
 							</>
 						)}
 						{stageName === "Country" && (
 							<>
 								<Wrapper animation={animation}>
-									<Country />
+									<Country next={next} nextCall={nextCall} data={state.Country} />
 								</Wrapper>
 							</>
 						)}
 						{stageName === "Server" && (
 							<>
 								<Wrapper animation={animation}>
-									<Servers />
+									<Servers
+										next={next}
+										nextCall={nextCall}
+										data={state.Server}
+										extraData={questions[stage].items}
+									/>
 								</Wrapper>
 							</>
 						)}
 						{stageName === "Platform" && (
 							<>
 								<Wrapper animation={animation}>
-									<Platforms />
+									<Platforms
+										next={next}
+										nextCall={nextCall}
+										data={state.Platform}
+										extraData={questions[stage].items}
+									/>
 								</Wrapper>
 							</>
 						)}
 						{stageName === "Rank" && (
 							<>
 								<Wrapper animation={animation}>
-									<Rank />
+									<Rank
+										next={next}
+										nextCall={nextCall}
+										data={state.Rank}
+										extraData={questions[stage].items}
+									/>
 								</Wrapper>
 							</>
 						)}
 						{stageName === "TextArea" && (
 							<>
 								<Wrapper animation={animation}>
-									<TextArea />
+									<TextArea next={next} nextCall={nextCall} data={state.TextArea} />
 								</Wrapper>
 							</>
 						)}
@@ -209,7 +247,12 @@ function StageManager({ game }: mainProp) {
 						nextBtn
 					) : (
 						<>
-							<div onClick={submiter}>submit</div>
+							<div onClick={submiter}>
+								submit{" "}
+								<div className="float-right" style={{ color: "var(--theme-main-color)" }}>
+									{stage + 1} / {questions.length}
+								</div>
+							</div>
 						</>
 					)}
 					<div className="flex justify-center pt-12">
